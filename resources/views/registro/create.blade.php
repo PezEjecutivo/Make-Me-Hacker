@@ -1,53 +1,68 @@
-@extends('usuarios.layouts')
+@extends('registro.layouts')
 
 @section('content')
 
-<div class="row justify-content-center mt-3">
-    <div class="col-md-8">
 
-        <div class="card">
-            <div class="card-body">
-                <form action="{{ route('registro.store') }}" method="post">
-                    @csrf
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Mulish&display=swap"
+            rel="stylesheet"
+        >
+        <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    </head>
+    <body>
+        <div class="background"></div>
+        <div style="display: flex; flex-direction: column;" class="centering">
+        <form class="my-form" action="{{ route('registro.store') }}" method="POST">
+        @CSRF
+            <div class="text-field">
+                <label for="name">Nombre de usuario:</label>
+                <input
+                    aria-label="Name"
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Nombre de usuario"
+                    required
+                >
 
-                    <div class="mb-3 row">
-                        <label for="name" class="col-md-4 col-form-label text-md-end text-start">Nombre:</label>
-                        <div class="col-md-6">
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}">
-                            @if ($errors->has('name'))
-                            <span class="text-danger">{{ $errors->first('name') }}</span>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="email" class="col-md-4 col-form-label text-md-end text-start">Email:</label>
-                        <div class="col-md-6">
-                            <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}">
-                            @if ($errors->has('email'))
-                            <span class="text-danger">{{ $errors->first('email') }}</span>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <label for="password" class="col-md-4 col-form-label text-md-end text-start">Contraseña:</label>
-                        <div class="col-md-6">
-                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" value="{{ old('password') }}">
-                            @if ($errors->has('password'))
-                            <span class="text-danger">{{ $errors->first('password') }}</span>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="mb-3 row">
-                        <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Registrarse">
-                    </div>
-
-                </form>
             </div>
+                <div class="text-field">
+                    <label for="email">Correo electronico:</label>
+                    <input
+                        aria-label="Email"
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="correo@gmail.com"
+                        required
+                    >
+                    <img src="{{ asset('images/login/email.svg') }}" alt="Avatar">
+                </div>
+                <div class="text-field">
+                    <label for="password">Contraseña:</label>
+                    <input
+                        id="password"
+                        type="password"
+                        aria-label="Password"
+                        name="password"
+                        placeholder="Contraseña"
+                        title="Al menos 6 caracteres, una letra y un numero"
+                        pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$"
+                        required
+                    >
+                    <img src="{{ asset('images/login/password.svg') }}" alt="Avatar">
+                </div>
+                <button type="submit" class="my-form__button">Registrarse</button>
+            </form>
         </div>
-    </div>
-</div>
+    </body>
+</html>
 
 @endsection

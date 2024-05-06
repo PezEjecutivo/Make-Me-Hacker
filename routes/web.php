@@ -6,7 +6,11 @@ use App\Http\Controllers\DeveloperController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('auth');
+
+Route::get('/information', function () {
+    return view('information/index');
+})->middleware('auth');
 
 //CRUD
 Route::resource("enemigos", DeveloperController::class)->middleware('auth');

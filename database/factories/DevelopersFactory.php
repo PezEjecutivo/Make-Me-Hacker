@@ -18,9 +18,9 @@ class DevelopersFactory extends Factory
     {
         return [
             'name' => fake()->unique()->name(),
-            'description' => fake()->text(),
-            'playable_character' => fake()->numberBetween(1, 100),
-            'final_enemy' => fake()->numberBetween(1, 10),
+            'speciality' => fake()->randomElement(["C#", "Python", "Deno", "PHP", "Java", "JavaScript", "nextjs", "Rust", "Ruby", "Golang", "C", "F#"]),
+            'price' => fake()->integer(),
+            'available' => fake()->randomElement(["avaliable", "unavaliable"]),
         ];
     }
 

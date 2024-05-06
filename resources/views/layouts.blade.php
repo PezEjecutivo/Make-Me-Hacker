@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Make me hacker</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="{{ asset('css/information.css') }}">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 </head>
 
 <body>
@@ -21,8 +21,9 @@
                 </a>
                 <img class="menu-icon" src="{{ asset('images/menu/burger-menu.svg') }}" title='Burger Menu' alt='Burger Menu' onclick="toggleMenu(this)">
                 <ul class="navigation">
+                    
                     <li>
-                        <a href="/inicio" title="Inicio">
+                        <a href="/" title="Inicio">
                             Inicio
                         </a>
                     </li>
@@ -41,6 +42,12 @@
                             Clasificación
                         </a>
                     </li>
+                    <li>
+                        <a href="/information" title="Información">
+                            Información
+                        </a>
+                    </li>
+                    
                     <li>
                         @auth
                         <form action="/logout" method="POST">

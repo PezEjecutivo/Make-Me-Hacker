@@ -106,7 +106,7 @@ class UserController extends Controller
 
         if (auth()->attempt($sesion)) {
             $request->session()->regenerate();
-            return redirect('/enemigos');
+            return redirect('/');
         } else {
         }
         return back();

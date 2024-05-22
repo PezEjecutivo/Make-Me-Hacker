@@ -4,17 +4,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DeveloperController;
 
-Route::get('/', function () {
-    return view('welcome');
-})->middleware('auth');
-
 Route::get('/information', function () {
     return view('information/index');
 })->middleware('auth');
 
 //CRUD
+Route::resource("", UserController::class)->middleware('auth');
 Route::resource("enemigos", DeveloperController::class)->middleware('auth');
 Route::resource("usuarios", UserController::class)->middleware('auth');
+
+Route::post('/save-score', [UserController::class, 'saveScore'])->name('save-score');
 
 //Registro
 Route::get("/login", [UserController::class, "formularioLogin"])->name('login');

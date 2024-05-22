@@ -8,10 +8,11 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $usuarios = User::all();
-        return view('usuarios.index')->with("usuarios", $usuarios);
+        $user = $request->user();
+ 
+        return view('welcome', ['user' => $user]);
     }
 
     /**
@@ -32,6 +33,20 @@ class UserController extends Controller
 
         //Redireccionamos a la vista
         return redirect()->route('usuarios.index')->with('success', 'usuario creado correctamente');
+    }
+
+    public function saveScore(Request $request)
+    {
+        $request->validate([
+            'score' => 'required|integer',
+        ]);
+
+        $user = $request->user();
+
+        $user->score = $request->input('score');
+        $user->save();
+
+        return redirect()->back()->with('success', 'Score updated successfully.');
     }
 
     public function create()

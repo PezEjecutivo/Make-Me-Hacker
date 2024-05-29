@@ -2,35 +2,20 @@
 
 @section('content')
 
-<div class="row justify-content-center mt-3">
-    <div class="col-md-8">
+<div style="display:flex; justify-content: flex-start; align-items: center; min-width: 800px; min-height:500px; background-color:aliceblue; margin: 100px; border-radius: 10px">
+    <div style="display:flex; width:200px; height:200px; border-radius: 100%; background-color:skyblue; margin: 30px;"></div>
 
-        <div class="card">
-            <div class="card-header">
-                <div class="float-start">
-                    Información del usuario
-                </div>
-                <div class="float-end">
-                    <a href="{{ route('usuarios.index') }}" class="btn btn-primary btn-sm">&larr; Atras</a>
-                </div>
-            </div>
-            <div class="card-body">
+    <div style="display: flex; flex-direction: column; gap:10px; margin-right: 100px">
+        <label for="code"><strong>Nombre:</strong></label>
+        <div>
+            {{ $user->name }}
+        </div>
+    </div>
 
-                <div class="row">
-                    <label for="code" class="col-md-4 col-form-label text-md-end text-start"><strong>Nombre:</strong></label>
-                    <div class="col-md-6" style="line-height: 35px;">
-                        {{ $usuario->name }}
-                    </div>
-                </div>
-
-                <div class="row">
-                    <label for="type" class="col-md-4 col-form-label text-md-end text-start"><strong>Email:</strong></label>
-                    <div class="col-md-6" style="line-height: 35px;">
-                        {{ $usuario->email }}
-                    </div>
-                </div>
-
-            </div>
+    <div style="display: flex; flex-direction: column; gap:10px; margin-right: 100px">
+        <label for="type"><strong>Email:</strong></label>
+        <div>
+            {{ $user->email }}
         </div>
     </div>
 </div>

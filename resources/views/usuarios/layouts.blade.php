@@ -22,7 +22,7 @@
                 <img class="menu-icon" src="{{ asset('images/menu/burger-menu.svg') }}" title='Burger Menu' alt='Burger Menu' onclick="toggleMenu(this)">
                 <ul class="navigation">
                     <li>
-                        <a href="/inicio" title="Inicio">
+                        <a href="/" title="Inicio">
                             Inicio
                         </a>
                     </li>
@@ -39,6 +39,11 @@
                     <li>
                         <a href="/clasificacion" title="Clasificación">
                             Clasificación
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/information" title="Información">
+                            Información
                         </a>
                     </li>
                     <li>

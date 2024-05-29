@@ -24,3 +24,4 @@ Route::post("/logout", [UserController::class, "logout"]);
 
 //Rutas aisladas
 Route::get("/clasificacion", [UserController::class, "ranking"])->name('ranking')->middleware('auth');
+Route::get("/perfil", [UserController::class, "show"])->name('show')->middleware('auth');

@@ -74,12 +74,11 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        //Sacamos los datos de un usuario con el id que nos dan
-        $usuario = User::find($id);
+        $user = $request->user();
 
-        return view('usuarios.show', compact('usuario'));
+        return view('usuarios.show', compact('user'));
     }
 
     /**

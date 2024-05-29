@@ -21,3 +21,6 @@ Route::post('/login', [UserController::class, 'iniciarSesion'])->name('login.ini
 Route::get('/registro', [UserController::class, 'create'])->name('registro');
 Route::post('/registro', [UserController::class, 'store'])->name('registro.store');
 Route::post("/logout", [UserController::class, "logout"]);
+
+//Rutas aisladas
+Route::get("/clasificacion", [UserController::class, "ranking"])->name('ranking')->middleware('auth');

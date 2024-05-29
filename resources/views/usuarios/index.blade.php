@@ -2,56 +2,81 @@
 
 @section('content')
 
-<div class="row justify-content-center mt-3">
-    <div class="col-md-12">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/information.css') }}">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+</head>
 
-        @if ($message = Session::get('success'))
-        <div class="alert alert-success" role="alert">
-            {{ $message }}
-        </div>
-        @endif
+<body>
 
-        <div class="card">
-            <div class="card-header">usuarios</div>
-            <div class="card-body">
-                <a href="{{ route('usuarios.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> Nuevo usuario</a>
-                <table class="table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($usuarios as $usuario)
-                        <tr>
-                            <td><a href="{{ route('usuarios.show', $usuario->id)}}">{{ $usuario->id }}</a></td>
-                            <td>{{ $usuario->name }}</td>
-                            <td>{{ $usuario->email }}</td>
-                            <td>
-                                <form action="{{ route('usuarios.destroy', $usuario->id) }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
+    <div style="display: flex; justify-content:center; align-items: flex-start; max-width: 500px; min-height: 800px; background-color:aliceblue; padding: auto; margin: auto; margin-top: 100px; border-radius: 10px;">
+        <table >
+            <thead>
+                <tr>
+                    <th style="padding-right:  100px;" scope="col"><u>Usuario</u></th>
+                    <th style="padding-right:  100px;" scope="col"><u>Score</u></th>
+                    <th style="padding-right:  100px;" scope="col"><u>Ranking</u></th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php $counter=0?>
+                @foreach ($users as $user)
+                <?php $counter++ ?>
+                @if ($toppers==3)
 
-                                    <a href="{{ route('usuarios.show', $usuario->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> Ver</a>
+                <tr>
+                    <td style="padding-right:  10px; color: goldenrod">{{ $user->name }}</td>
+                    <td style="padding-right:  20px; color: goldenrod">{{ $user->score }}</td>
+                    <td style="padding-right:  20px; color: goldenrod">{{ $counter }}</td>
+                </tr>
 
-                                    <a href="{{ route('usuarios.edit', $usuario->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Editar</a>
+                <?php $toppers-- ?>
 
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Quieres Borrar este producto?');"><i class="bi bi-trash"></i> Borrar</button>
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
+                @elseif($toppers==2)
 
-                    </tbody>
-                </table>
+                <tr>
+                    <td style="padding-right:  10px; color: silver">{{ $user->name }}</td>
+                    <td style="padding-right:  20px; color: silver">{{ $user->score }}</td>
+                    <td style="padding-right:  20px; color: silver">{{ $counter }}</td>
 
+                </tr>
 
-            </div>
-        </div>
+                <?php $toppers-- ?>
+
+                @elseif($toppers==1)
+
+                <tr>
+                    <td style="padding-right:  10px; color: brown">{{ $user->name }}</td>
+                    <td style="padding-right:  20px; color: brown">{{ $user->score }}</td>
+                    <td style="padding-right:  20px; color: brown">{{ $counter }}</td>
+
+                </tr>
+
+                <?php $toppers-- ?>
+
+                @else
+
+                <tr>
+                    <td style="padding-right:  10px;">{{ $user->name }}</td>
+                    <td style="padding-right:  20px;">{{ $user->score }}</td>
+                    <td style="padding-right:  20px;">{{ $counter }}</td>
+
+                </tr>
+
+                @endif
+                
+                @endforeach
+
+            </tbody>
+        </table>
     </div>
-</div>
+
+</body>
 
 @endsection

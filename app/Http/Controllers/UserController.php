@@ -15,6 +15,15 @@ class UserController extends Controller
         return view('welcome', ['user' => $user]);
     }
 
+    public function ranking(Request $request)
+    {
+        $users = User::all();
+
+        $toppers = 3;
+ 
+        return view('usuarios.index', ['users' => $users, "toppers" => $toppers]);
+    }
+
     /**
      * Guarda en BD los datos del formulario de registro de discotecas
      * y despues redirecciona a el indice

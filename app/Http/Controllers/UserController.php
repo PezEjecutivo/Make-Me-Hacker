@@ -17,7 +17,7 @@ class UserController extends Controller
 
     public function ranking(Request $request)
     {
-        $users = User::all();
+        $users = User::all()->sortByDesc('score');
 
         $toppers = 3;
  

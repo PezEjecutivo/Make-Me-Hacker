@@ -18,7 +18,7 @@
     </style>
 </head>
 <body>
-    <div style="width: 40%; height: 80%; display: flex; justify-content: center; margin: auto; margin-top: 5%; border-radius: 5px">
+    <div style="width: 40%; display: flex; justify-content: center; margin: auto; margin-top: 13%; border-radius: 5px">
         <div style="display: flex; flex-direction: column;">
             <div style="display: flex; flex-direction: row; gap: 10px; justify-content:center; font-size:2rem; color:goldenrod">
                 Dinero: <div id="display-score"></div>

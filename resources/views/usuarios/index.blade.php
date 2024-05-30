@@ -15,8 +15,8 @@
 
 <body>
 
-    <div style="display: flex; justify-content:center; align-items: flex-start; max-width: 500px; min-height: 800px; background-color:aliceblue; padding: auto; margin: auto; margin-top: 100px; border-radius: 10px;">
-        <table >
+    <div style="display: flex; justify-content:center; align-items: flex-start; max-width: 450px; min-height: 700px; background-color:aliceblue; padding: auto; margin: auto; margin-top: 100px; border-radius: 10px;">
+        <table style="margin-top: 20px; margin-left: 100px">
             <thead>
                 <tr>
                     <th style="padding-right:  100px;" scope="col"><u>Usuario</u></th>

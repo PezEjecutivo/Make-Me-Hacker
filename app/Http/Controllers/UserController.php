@@ -24,10 +24,6 @@ class UserController extends Controller
         return view('usuarios.index', ['users' => $users, "toppers" => $toppers]);
     }
 
-    /**
-     * Guarda en BD los datos del formulario de registro de discotecas
-     * y despues redirecciona a el indice
-     */
     public function store(Request $request)
     {
         //Validamos los datos
@@ -71,9 +67,6 @@ class UserController extends Controller
         return view('usuarios.edit', compact('usuario'));
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Request $request)
     {
         $user = $request->user();
@@ -81,9 +74,6 @@ class UserController extends Controller
         return view('usuarios.show', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //Validamos los datos
@@ -102,9 +92,6 @@ class UserController extends Controller
             ->with('success', 'Modificación realizada');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $usuarios = User::find($id);
@@ -145,5 +132,106 @@ class UserController extends Controller
         $request->session()->regenerateToken();
 
         return back();
+    }
+
+    //Admin routes
+    public function allUsers(Request $request)
+    {
+
+        $user = $request->user();
+
+        if($user->name != "TetecilloBombilla"){
+            return view('welcome', ['user' => $user]);
+        }
+
+        $users = User::all();
+        return view('admin.index', compact('users'));
+    }
+
+    public function showUser(Request $request, $id )
+    {
+
+        $user = $request->user();
+
+        if($user->name != "TetecilloBombilla"){
+            return view('welcome', ['user' => $user]);
+        }
+        
+        $user = User::findOrFail($id);
+        return view('admin.show', compact('user'));
+    }
+
+    public function createUser(Request $request)
+    {
+
+        $user = $request->user();
+
+        if($user->name != "TetecilloBombilla"){
+            return view('welcome', ['user' => $user]);
+        }
+
+        return view('admin.create');
+    }
+
+    public function storeUser(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        return redirect()->route('allUsers')->with('success', 'User created successfully.');
+    }
+
+    public function editUser(Request $request, $id)
+    {
+        $user = $request->user();
+
+        if($user->name != "TetecilloBombilla"){
+            return view('welcome', ['user' => $user]);
+        }
+
+        $user = User::findOrFail($id);
+        return view('admin.edit', compact('user'));
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'password' => 'nullable|string|min:8|confirmed',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        if ($request->password) {
+            $user->password = bcrypt($request->password);
+        }
+        $user->save();
+
+        return redirect()->route('allUsers')->with('success', 'User updated successfully.');
+    }
+
+    public function destroyUser(Request $request, $id)
+    {
+        $user = $request->user();
+
+        if($user->name != "TetecilloBombilla"){
+            return view('welcome', ['user' => $user]);
+        }
+
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('allUsers')->with('success', 'User deleted successfully.');
     }
 }

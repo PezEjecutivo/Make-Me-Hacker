@@ -213,6 +213,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->score = $request->score;
         if ($request->password) {
             $user->password = bcrypt($request->password);
         }

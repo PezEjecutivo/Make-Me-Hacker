@@ -28,7 +28,7 @@ Route::get("/perfil", [UserController::class, "show"])->name('show')->middleware
 // Rutas admin
 Route::get("/admin", [UserController::class, "allUsers"])->name("allUsers")->middleware("auth");
 Route::get("/admin/user/{id}", [UserController::class, "showUser"])->name("showUser")->middleware("auth");
-Route::get("/admin/user/create", [UserController::class, "createUser"])->name("createUser")->middleware("auth");
+Route::get("/admin/create", [UserController::class, "createUser"])->name("createUser")->middleware("auth");
 Route::post("/admin/user", [UserController::class, "storeUser"])->name("storeUser")->middleware("auth");
 Route::get("/admin/user/{id}/edit", [UserController::class, "editUser"])->name("editUser")->middleware("auth");
 Route::put("/admin/user/{id}", [UserController::class, "updateUser"])->name("updateUser")->middleware("auth");

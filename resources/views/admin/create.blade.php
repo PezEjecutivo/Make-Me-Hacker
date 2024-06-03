@@ -11,11 +11,11 @@
                     Añadir usuario
                 </div>
                 <div class="float-end">
-                    <a href="{{ route('usuarios.index') }}" class="btn btn-primary btn-sm">&larr; Atras</a>
+                    <a href="{{ route('allUsers') }}" class="btn btn-primary btn-sm">&larr; Atras</a>
                 </div>
             </div>
             <div class="card-body">
-                <form action="{{ route('usuarios.store') }}" method="post">
+                <form action="{{ route('storeUser') }}" method="post">
                     @csrf
 
                     <div class="mb-3 row">
@@ -39,7 +39,7 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="password" class="col-md-4 col-form-label text-md-end text-start">Contrasena:</label>
+                        <label for="password" class="col-md-4 col-form-label text-md-end text-start">Contraseña:</label>
                         <div class="col-md-6">
                             <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" value="{{ old('password') }}">
                             @if ($errors->has('password'))

@@ -8,18 +8,18 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('developers', function (Blueprint $table) {
+        Schema::create('mejoras_obtenidas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('especialidad');
-            $table->decimal('tarifa', 8, 2);
-            $table->boolean('disponibilidad')->default(true);
+            $table->string('tipo');
+            $table->integer('duracion');
+            $table->decimal('costo', 8, 2);
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('developers');
+        Schema::dropIfExists('mejoras_obtenidas');
     }
 };

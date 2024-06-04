@@ -37,7 +37,7 @@ class UserController extends Controller
         User::create($request->all());
 
         //Redireccionamos a la vista
-        return redirect()->route('usuarios.index')->with('success', 'usuario creado correctamente');
+        return redirect()->route('login')->with('success', 'Usuario creado correctamente');
     }
 
     public function saveScore(Request $request)

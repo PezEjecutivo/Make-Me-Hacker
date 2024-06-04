@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Developers extends Model
+class Niveles extends Model
 {
     use HasFactory;
 
-    protected $table = 'developers';
+    protected $table = 'niveles';
 
     protected $fillable = [
         'nombre',
-        'especialidad',
-        'tarifa',
-        'disponibilidad',
+        'experiencia_requerida',
+        'desbloque',
+        'recompensa',
     ];
-
 }

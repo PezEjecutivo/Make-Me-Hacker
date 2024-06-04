@@ -3,14 +3,24 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DeveloperController;
+use App\Http\Controllers\LogrosController;
+use App\Http\Controllers\MejorasObtenidasController;
+use App\Http\Controllers\NivelesController;
+use App\Http\Controllers\AmigosController;
+use App\Http\Controllers\DesafiosController;
 
 Route::get('/information', function () {
     return view('information/index');
 })->middleware('auth');
 
-//CRUD
+//RUTAS AUTOMATICAS / CRUD
 Route::resource("", UserController::class)->middleware('auth');
-Route::resource("enemigos", DeveloperController::class)->middleware('auth');
+Route::resource('logros', LogrosController::class)->middleware('auth');
+Route::resource('programadores', DeveloperController::class)->middleware('auth');
+Route::resource('mejoras-obtenidas', MejorasObtenidasController::class)->middleware('auth');
+Route::resource('niveles', NivelesController::class)->middleware('auth');
+Route::resource('amigos', AmigosController::class)->middleware('auth');
+Route::resource('desafios', DesafiosController::class)->middleware('auth');
 
 Route::post('/save-score', [UserController::class, 'saveScore'])->name('save-score');
 

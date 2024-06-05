@@ -8,6 +8,8 @@ use App\Http\Controllers\MejorasObtenidasController;
 use App\Http\Controllers\NivelesController;
 use App\Http\Controllers\AmigosController;
 use App\Http\Controllers\DesafiosController;
+use App\Http\Controllers\Auth\LoginRegisterController;
+use App\Http\Controllers\Auth\VerificationController;
 
 Route::get('/information', function () {
     return view('information/index');
@@ -30,6 +32,23 @@ Route::post('/login', [UserController::class, 'iniciarSesion'])->name('login.ini
 Route::get('/registro', [UserController::class, 'create'])->name('registro');
 Route::post('/registro', [UserController::class, 'store'])->name('registro.store');
 Route::post("/logout", [UserController::class, "logout"]);
+
+//Rutas Registro
+Route::controller(LoginRegisterController::class)->group(function() {
+    Route::get('/register', 'register')->name('register');
+    Route::post('/store', 'store')->name('store');
+    Route::get('/login', 'login')->name('login');
+    Route::post('/authenticate', 'authenticate')->name('authenticate');
+    Route::get('/home', 'home')->name('home');
+    Route::post('/logout', 'logout')->name('logout');
+});
+
+// Define Custom Verification Routes
+Route::controller(VerificationController::class)->group(function() {
+    Route::get('/email/verify', 'notice')->name('verification.notice');
+    Route::get('/email/verify/{id}/{hash}', 'verify')->name('verification.verify');
+    Route::post('/email/resend', 'resend')->name('verification.resend');
+});
 
 //Rutas aisladas
 Route::get("/clasificacion", [UserController::class, "ranking"])->name('ranking')->middleware('auth');

@@ -34,7 +34,7 @@ Route::post('/registro', [UserController::class, 'store'])->name('registro.store
 Route::post("/logout", [UserController::class, "logout"]);
 
 //Rutas Registro
-Route::controller(LoginRegisterController::class)->group(function() {
+Route::controller(LoginRegisterController::class)->group(function () {
     Route::get('/register', 'register')->name('register');
     Route::post('/store', 'store')->name('store');
     Route::get('/login', 'login')->name('login');
@@ -43,8 +43,8 @@ Route::controller(LoginRegisterController::class)->group(function() {
     Route::post('/logout', 'logout')->name('logout');
 });
 
-// Define Custom Verification Routes
-Route::controller(VerificationController::class)->group(function() {
+// Rutas de verificacion
+Route::controller(VerificationController::class)->group(function () {
     Route::get('/email/verify', 'notice')->name('verification.notice');
     Route::get('/email/verify/{id}/{hash}', 'verify')->name('verification.verify');
     Route::post('/email/resend', 'resend')->name('verification.resend');
@@ -53,6 +53,7 @@ Route::controller(VerificationController::class)->group(function() {
 //Rutas aisladas
 Route::get("/clasificacion", [UserController::class, "ranking"])->name('ranking')->middleware('auth');
 Route::get("/perfil", [UserController::class, "show"])->name('show')->middleware('auth');
+Route::get("/desafios/Java", [DesafiosController::class, "desafiosJava"])->name("desafiosJava")->middleware("auth");
 
 // Rutas admin
 Route::get("/admin", [UserController::class, "allUsers"])->name("allUsers")->middleware("auth");

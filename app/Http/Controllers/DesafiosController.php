@@ -10,7 +10,9 @@ class DesafiosController extends Controller
 {
     public function index()
     {
-        return Desafios::all();
+        $desafios = Desafios::all();
+
+        return view('desafios.index', ['desafios' => $desafios]);
     }
 
     public function store(Request $request)

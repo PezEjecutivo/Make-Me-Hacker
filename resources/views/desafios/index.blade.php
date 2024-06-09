@@ -19,93 +19,64 @@
 <body>
 
   <div class="cards">
+
+    @foreach ($desafios as $desafio)
+
     <article class="card">
       <div class="card__preview">
+        @if ($desafio->nombre=="css")
         <img src="{{asset("images/desafios/css.png")}}" alt="Lakeview Elegance preview">
         <div class="card__price">
-          $1000
+          {{$desafio->dificultad}}
         </div>
       </div>
       <div class="card__content">
         <h2 class="card__title">Desafio normal (CSS)</h2>
-        <p class="card__address">
-          Consigue ese dinero en 3 minutos!
-        </p>
-        <p class="card__description">
-          Escogue este desafio y aumentaras tu dinero en 2000!
-        </p>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__preview">
-        <img src="{{asset("images/desafios/java.png")}}" alt="Vista Paradiso">
+        @elseif($desafio->nombre=="java")
+        <img src="{{asset("images/desafios/java.png")}}" alt="Lakeview Elegance preview">
         <div class="card__price">
-          $200
+          {{$desafio->dificultad}}
         </div>
       </div>
       <div class="card__content">
         <h2 class="card__title">Desafio normal (JAVA)</h2>
-        <p class="card__address">
-          Consigue ese dinero en 3 minutos!
-        </p>
-        <p class="card__description">
-          Escogue este desafio y aumentaras tu dinero en 400!
-        </p>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__preview">
-        <img src="{{asset("images/desafios/js.png")}}" alt="Skyline Oasis">
+        @elseif($desafio->nombre=="js")
+        <img src="{{asset("images/desafios/js.png")}}" alt="Lakeview Elegance preview">
         <div class="card__price">
-          $150
+          {{$desafio->dificultad}}
         </div>
       </div>
       <div class="card__content">
         <h2 class="card__title">Desafio normal (JS)</h2>
-        <p class="card__address">
-          Consigue ese dinero en 3 minutos!
-        </p>
-        <p class="card__description">
-          Escogue este desafio y aumentaras tu dinero en 300!
-        </p>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__preview">
-        <img src="{{asset("images/desafios/php.png")}}" alt="Skyline Oasis">
+        @elseif($desafio->nombre=="php")
+        <img src="{{asset("images/desafios/php.png")}}" alt="Lakeview Elegance preview">
         <div class="card__price">
-          $300
+          {{$desafio->dificultad}}
         </div>
       </div>
       <div class="card__content">
         <h2 class="card__title">Desafio normal (PHP)</h2>
-        <p class="card__address">
-          Consigue ese dinero en 3 minutos!
-        </p>
-        <p class="card__description">
-          Escogue este desafio y aumentaras tu dinero en 600!
-        </p>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__preview">
-        <img src="{{asset("images/desafios/python.png")}}" alt="Skyline Oasis">
+        @else
+        <img src="{{asset("images/desafios/python.png")}}" alt="Lakeview Elegance preview">
         <div class="card__price">
-          $500
+          {{$desafio->dificultad}}
         </div>
       </div>
       <div class="card__content">
         <h2 class="card__title">Desafio normal (PYTHON)</h2>
+        @endif
+
         <p class="card__address">
-          Consigue ese dinero en 3 minutos!
+          {{$desafio->descripcion}}
         </p>
         <p class="card__description">
-          Escogue este desafio y aumentaras tu dinero en 1000!
+          Escogue este desafio y aumentaras tu dinero en {{$desafio->recompensa}}!
         </p>
       </div>
     </article>
+
+    @endforeach
   </div>
-  <script src="script.js"></script>
 </body>
 
 @endsection

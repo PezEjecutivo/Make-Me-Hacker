@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Logros;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -11,7 +12,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
- 
+
         return view('welcome', ['user' => $user]);
     }
 
@@ -20,7 +21,7 @@ class UserController extends Controller
         $users = User::all()->sortByDesc('score');
 
         $toppers = 3;
- 
+
         return view('usuarios.index', ['users' => $users, "toppers" => $toppers]);
     }
 
@@ -140,7 +141,7 @@ class UserController extends Controller
 
         $user = $request->user();
 
-        if($user->name != "TetecilloBombilla"){
+        if ($user->email != "lisoxa1396@lapeds.com") {
             return view('welcome', ['user' => $user]);
         }
 
@@ -148,15 +149,15 @@ class UserController extends Controller
         return view('admin.index', compact('users'));
     }
 
-    public function showUser(Request $request, $id )
+    public function showUser(Request $request, $id)
     {
 
         $user = $request->user();
 
-        if($user->name != "TetecilloBombilla"){
+        if ($user->email != "lisoxa1396@lapeds.com") {
             return view('welcome', ['user' => $user]);
         }
-        
+
         $user = User::findOrFail($id);
         return view('admin.show', compact('user'));
     }
@@ -166,7 +167,7 @@ class UserController extends Controller
 
         $user = $request->user();
 
-        if($user->name != "TetecilloBombilla"){
+        if ($user->email != "lisoxa1396@lapeds.com") {
             return view('welcome', ['user' => $user]);
         }
 
@@ -194,7 +195,7 @@ class UserController extends Controller
     {
         $user = $request->user();
 
-        if($user->name != "TetecilloBombilla"){
+        if ($user->email != "lisoxa1396@lapeds.com") {
             return view('welcome', ['user' => $user]);
         }
 
@@ -226,7 +227,7 @@ class UserController extends Controller
     {
         $user = $request->user();
 
-        if($user->name != "TetecilloBombilla"){
+        if ($user->email != "lisoxa1396@lapeds.com") {
             return view('welcome', ['user' => $user]);
         }
 

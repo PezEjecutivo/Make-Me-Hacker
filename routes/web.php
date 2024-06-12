@@ -8,6 +8,7 @@ use App\Http\Controllers\MejorasObtenidasController;
 use App\Http\Controllers\NivelesController;
 use App\Http\Controllers\AmigosController;
 use App\Http\Controllers\DesafiosController;
+use App\Http\Controllers\UserDesafioController;
 use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\AboutUsController;
@@ -54,7 +55,7 @@ Route::controller(VerificationController::class)->group(function () {
 //Rutas aisladas
 Route::get("/clasificacion", [UserController::class, "ranking"])->name('ranking')->middleware('auth');
 Route::get("/perfil", [UserController::class, "show"])->name('show')->middleware('auth');
-Route::get("/desafios/Java", [DesafiosController::class, "desafiosJava"])->name("desafiosJava")->middleware("auth");
+Route::post('/desafio', [UserDesafioController::class, 'store'])->name('click.store');
 Route::get("/information/cookies", [UserController::class, "cookies"])->name("cookies");
 Route::get('/about-us', [AboutUsController::class, 'index'])->name('about.us');
 Route::post('/contact', [AboutUsController::class, 'sendContactForm'])->name('contact.form');

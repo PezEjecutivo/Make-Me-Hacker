@@ -109,7 +109,12 @@ class LoginRegisterController extends Controller
             return redirect()->route('login');
         }
 
-        return view('welcome', ['user' => $user]);
+        $userDesafios = $user->desafios()->with('desafio')->get(); 
+
+        return view('welcome', [
+            'user' => $user,
+            'userDesafios' => $userDesafios
+        ]);
     } 
     
     /**

@@ -1,6 +1,5 @@
 @extends('../layouts')
 
-
 @section('content')
 
 <head>
@@ -14,15 +13,13 @@
   <link rel="stylesheet" href="{{ asset('css/desafios.css') }}">
   <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
   <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
-
   <div class="cards">
-
     @foreach ($desafios as $desafio)
-
-    <article class="card">
+    <article class="card" data-desafio-id="{{ $desafio->id }}">
       <div class="card__preview">
         @if ($desafio->nombre=="css")
         <img src="{{asset("images/desafios/css.png")}}" alt="Lakeview Elegance preview">
@@ -34,7 +31,6 @@
         <h2 class="card__title">Desafio normal (CSS)</h2>
 
         @elseif($desafio->nombre=="java")
-
         <img src="{{asset("images/desafios/java.png")}}" alt="Lakeview Elegance preview">
         <div class="card__price">
           {{$desafio->dificultad}}
@@ -42,9 +38,8 @@
       </div>
       <div class="card__content">
         <h2 class="card__title">Desafio normal (JAVA)</h2>
-        
-        @elseif($desafio->nombre=="js")
 
+        @elseif($desafio->nombre=="js")
         <img src="{{asset("images/desafios/js.png")}}" alt="Lakeview Elegance preview">
         <div class="card__price">
           {{$desafio->dificultad}}
@@ -54,7 +49,6 @@
         <h2 class="card__title">Desafio normal (JS)</h2>
 
         @elseif($desafio->nombre=="php")
-
         <img src="{{asset("images/desafios/php.png")}}" alt="Lakeview Elegance preview">
         <div class="card__price">
           {{$desafio->dificultad}}
@@ -64,7 +58,6 @@
         <h2 class="card__title">Desafio normal (PHP)</h2>
 
         @else
-
         <img src="{{asset("images/desafios/python.png")}}" alt="Lakeview Elegance preview">
         <div class="card__price">
           {{$desafio->dificultad}}
@@ -72,20 +65,39 @@
       </div>
       <div class="card__content">
         <h2 class="card__title">Desafio normal (PYTHON)</h2>
-        
-        @endif
 
+        @endif
         <p class="card__address">
           {{$desafio->descripcion}}
         </p>
         <p class="card__description">
-          Escogue este desafio y aumentaras tu dinero en {{$desafio->recompensa}}!
+          Escoge este desafio y aumentaras tu dinero en {{$desafio->recompensa}}!
         </p>
       </div>
     </article>
-
     @endforeach
   </div>
+
+  <script>
+    $(document).ready(function() {
+      $('.card').on('click', function() {
+        var desafioId = $(this).data('desafio-id');
+        $.ajax({
+          url: "{{ route('click.store') }}",
+          method: 'POST',
+          data: {
+            _token: "{{ csrf_token() }}",
+            desafio_id: desafioId
+          },
+          success: function(response) {
+            if (response.success) {
+              alert('Click recorded successfully.');
+            }
+          }
+        });
+      });
+    });
+  </script>
 </body>
 
 @endsection

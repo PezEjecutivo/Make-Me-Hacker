@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Logros;
+use App\Models\UserDesafio;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -12,8 +13,12 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
+        $userDesafios = $user->desafios()->with('desafio')->get();  
 
-        return view('welcome', ['user' => $user]);
+        return view('welcome', [
+            'user' => $user,
+            'userDesafios' => $userDesafios
+        ]);
     }
 
     public function ranking(Request $request)
@@ -142,7 +147,12 @@ class UserController extends Controller
         $user = $request->user();
 
         if ($user->email != "TetecilloBombilla@email.com") {
-            return view('welcome', ['user' => $user]);
+            $userDesafios = $user->desafios()->with('desafio')->get();  
+    
+            return view('welcome', [
+                'user' => $user,
+                'userDesafios' => $userDesafios
+            ]);
         }
 
         $users = User::all();
@@ -155,7 +165,12 @@ class UserController extends Controller
         $user = $request->user();
 
         if ($user->email != "TetecilloBombilla@email.com") {
-            return view('welcome', ['user' => $user]);
+            $userDesafios = $user->desafios()->with('desafio')->get();  
+    
+            return view('welcome', [
+                'user' => $user,
+                'userDesafios' => $userDesafios
+            ]);
         }
 
         $user = User::findOrFail($id);
@@ -168,7 +183,12 @@ class UserController extends Controller
         $user = $request->user();
 
         if ($user->email != "TetecilloBombilla@email.com") {
-            return view('welcome', ['user' => $user]);
+            $userDesafios = $user->desafios()->with('desafio')->get();  
+    
+            return view('welcome', [
+                'user' => $user,
+                'userDesafios' => $userDesafios
+            ]);
         }
 
         return view('admin.create');
@@ -196,7 +216,12 @@ class UserController extends Controller
         $user = $request->user();
 
         if ($user->email != "TetecilloBombilla@email.com") {
-            return view('welcome', ['user' => $user]);
+            $userDesafios = $user->desafios()->with('desafio')->get();  
+    
+            return view('welcome', [
+                'user' => $user,
+                'userDesafios' => $userDesafios
+            ]);
         }
 
         $user = User::findOrFail($id);
@@ -228,7 +253,12 @@ class UserController extends Controller
         $user = $request->user();
 
         if ($user->email != "TetecilloBombilla@email.com") {
-            return view('welcome', ['user' => $user]);
+            $userDesafios = $user->desafios()->with('desafio')->get(); 
+    
+            return view('welcome', [
+                'user' => $user,
+                'userDesafios' => $userDesafios
+            ]);
         }
 
         $user = User::findOrFail($id);

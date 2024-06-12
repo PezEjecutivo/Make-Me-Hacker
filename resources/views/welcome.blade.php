@@ -71,6 +71,18 @@
             </div>
             <input type="submit" class="save-button" value="Guardar progreso">
         </form>
+        @if ($userDesafios)
+        <p>Tienes activados los siguientes desafios: </p>
+        @foreach ($userDesafios as $userDesafio)
+
+        <div>
+            <p>Desafio de {{$userDesafio->desafio->nombre}}</p>
+            <p>Tienes que conseguir {{$userDesafio->desafio->dificultad}}</p>
+        </div>
+
+        
+        @endforeach
+        @endif
     </div>
 
     <script>

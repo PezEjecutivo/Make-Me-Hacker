@@ -10,6 +10,7 @@ use App\Http\Controllers\AmigosController;
 use App\Http\Controllers\DesafiosController;
 use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\AboutUsController;
 
 Route::get('/information', function () {
     return view('information/index');
@@ -39,7 +40,7 @@ Route::controller(LoginRegisterController::class)->group(function () {
     Route::post('/store', 'store')->name('store');
     Route::get('/login', 'login')->name('login');
     Route::post('/authenticate', 'authenticate')->name('authenticate');
-    Route::get('/home', 'home')->name('home');
+    Route::get('/', 'home')->name('home');
     Route::post('/logout', 'logout')->name('logout');
 });
 
@@ -54,6 +55,9 @@ Route::controller(VerificationController::class)->group(function () {
 Route::get("/clasificacion", [UserController::class, "ranking"])->name('ranking')->middleware('auth');
 Route::get("/perfil", [UserController::class, "show"])->name('show')->middleware('auth');
 Route::get("/desafios/Java", [DesafiosController::class, "desafiosJava"])->name("desafiosJava")->middleware("auth");
+Route::get("/information/cookies", [UserController::class, "cookies"])->name("cookies");
+Route::get('/about-us', [AboutUsController::class, 'index'])->name('about.us');
+Route::post('/contact', [AboutUsController::class, 'sendContactForm'])->name('contact.form');
 
 // Rutas admin
 Route::get("/admin", [UserController::class, "allUsers"])->name("allUsers")->middleware("auth");

@@ -32,7 +32,9 @@
       </div>
       <div class="card__content">
         <h2 class="card__title">Desafio normal (CSS)</h2>
+
         @elseif($desafio->nombre=="java")
+
         <img src="{{asset("images/desafios/java.png")}}" alt="Lakeview Elegance preview">
         <div class="card__price">
           {{$desafio->dificultad}}
@@ -40,7 +42,9 @@
       </div>
       <div class="card__content">
         <h2 class="card__title">Desafio normal (JAVA)</h2>
+        
         @elseif($desafio->nombre=="js")
+
         <img src="{{asset("images/desafios/js.png")}}" alt="Lakeview Elegance preview">
         <div class="card__price">
           {{$desafio->dificultad}}
@@ -48,7 +52,9 @@
       </div>
       <div class="card__content">
         <h2 class="card__title">Desafio normal (JS)</h2>
+
         @elseif($desafio->nombre=="php")
+
         <img src="{{asset("images/desafios/php.png")}}" alt="Lakeview Elegance preview">
         <div class="card__price">
           {{$desafio->dificultad}}
@@ -56,7 +62,9 @@
       </div>
       <div class="card__content">
         <h2 class="card__title">Desafio normal (PHP)</h2>
+
         @else
+
         <img src="{{asset("images/desafios/python.png")}}" alt="Lakeview Elegance preview">
         <div class="card__price">
           {{$desafio->dificultad}}
@@ -64,6 +72,7 @@
       </div>
       <div class="card__content">
         <h2 class="card__title">Desafio normal (PYTHON)</h2>
+        
         @endif
 
         <p class="card__address">

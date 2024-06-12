@@ -101,9 +101,15 @@ class LoginRegisterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function home()
+    public function home(Request $request)
     {
-        return view('auth.home');
+        $user = $request->user();
+
+        if(!$user){
+            return redirect()->route('login');
+        }
+
+        return view('welcome', ['user' => $user]);
     } 
     
     /**

@@ -35,6 +35,18 @@
         </summary>
         <div class="faq-content">Los desafios te proporcionaran más dinero que de normal lo haria un contrato, o por tu propia cuenta pero estos tienen una limitación de tiempo la cual te hara perder todo el dinero que has generado mientras intentas completar el desafio en caso de que no consigas cumplirlo, los desafios se riguen por la regla de riesgo-recompensa</div>
     </details>
+
+    <details>
+        <summary>
+            <span class="faq-title"><a href="{{route("about.us")}}">Sobre nosotros!! </a></span>
+        </summary>
+    </details>
+
+    <details>
+        <summary>
+            <span class="faq-title"><a href="{{route("cookies")}}">Politicas de privacidad!!!! </a> </span>
+        </summary>
+    </details>
 </div>
 <script src="script.js"></script>
 

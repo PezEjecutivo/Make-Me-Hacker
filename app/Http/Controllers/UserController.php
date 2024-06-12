@@ -141,7 +141,7 @@ class UserController extends Controller
 
         $user = $request->user();
 
-        if ($user->email != "lisoxa1396@lapeds.com") {
+        if ($user->email != "TetecilloBombilla@email.com") {
             return view('welcome', ['user' => $user]);
         }
 
@@ -154,7 +154,7 @@ class UserController extends Controller
 
         $user = $request->user();
 
-        if ($user->email != "lisoxa1396@lapeds.com") {
+        if ($user->email != "TetecilloBombilla@email.com") {
             return view('welcome', ['user' => $user]);
         }
 
@@ -167,7 +167,7 @@ class UserController extends Controller
 
         $user = $request->user();
 
-        if ($user->email != "lisoxa1396@lapeds.com") {
+        if ($user->email != "TetecilloBombilla@email.com") {
             return view('welcome', ['user' => $user]);
         }
 
@@ -195,7 +195,7 @@ class UserController extends Controller
     {
         $user = $request->user();
 
-        if ($user->email != "lisoxa1396@lapeds.com") {
+        if ($user->email != "TetecilloBombilla@email.com") {
             return view('welcome', ['user' => $user]);
         }
 
@@ -227,7 +227,7 @@ class UserController extends Controller
     {
         $user = $request->user();
 
-        if ($user->email != "lisoxa1396@lapeds.com") {
+        if ($user->email != "TetecilloBombilla@email.com") {
             return view('welcome', ['user' => $user]);
         }
 
@@ -235,5 +235,16 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('allUsers')->with('success', 'User deleted successfully.');
+    }
+
+    public function cookies()
+    {
+        return view('information.cookies');
+    }
+
+    public function sobreNosotros(){
+
+        return view("information.sobreNosotros");
+
     }
 }

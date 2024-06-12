@@ -73,9 +73,9 @@
 <body>
     <div style="display:flex; flex-direction: row;">
 
-        <div class="container" style="display:flex; justify-content: flex-start; gap:10px; color: white">
+        <div class="container" style="display:flex; justify-content: flex-start; gap:10px; color: white; min-width:340px">
             <!-- @if ($userDesafios) -->
-            <p>Tienes activados los siguientes programadores: </p>
+            <p>Programadores activados: </p>
             <!-- @foreach ($userDesafios as $userDesafio)
 
             <div>
@@ -102,9 +102,9 @@
         </div>
 
         
-        <div class="container" style="display:flex; justify-content: flex-start; gap:10px; color: white">
+        <div class="container" style="display:flex; justify-content: flex-start; gap:10px; color: white; min-width:340px">
             @if ($userDesafios)
-            <p>Tienes activados los siguientes desafios: </p>
+            <p>Desafios activados: </p>
             @foreach ($userDesafios as $userDesafio)
 
             <div style="background:rgba(0, 0, 0, 0.3); border-radius:10px; padding:10px">

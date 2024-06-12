@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Cards</title>
+  <title>Make me hacker - Desafios!!</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
   <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 
 <body>
@@ -64,11 +65,21 @@
           },
           success: function(response) {
             if (response.success) {
-              alert('Desafio added successfully.');
+              Swal.fire({
+                title: 'Desafio aceptado!',
+                text: 'Has aceptado el desafio correctamente! vuelve a la pestaña de inicio y completalo!!.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+              });
             }
           },
           error: function(xhr) {
-            alert('An error occurred: ' + xhr.status + ' ' + xhr.statusText);
+            Swal.fire({
+              title: 'Error!',
+              text: 'An error occurred: ' + xhr.status + ' ' + xhr.statusText,
+              icon: 'error',
+              confirmButtonText: 'OK'
+            });
           }
         });
       });

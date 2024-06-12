@@ -4,6 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <title>Make me hacker - Ranking!</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +27,7 @@
                 </tr>
             </thead>
             <tbody>
-            <?php $counter=0 ?>
+                <?php $counter = 0 ?>
                 @foreach ($users as $user)
                 <?php $counter++ ?>
                 @if ($toppers==3)

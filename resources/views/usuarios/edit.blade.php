@@ -12,14 +12,6 @@
         @endif
 
         <div class="card">
-            <div class="card-header">
-                <div class="float-start">
-                    Modificar Alumno
-                </div>
-                <div class="float-end">
-                    <a href="{{ route('usuarios.index') }}" class="btn btn-primary btn-sm">&larr; Atras</a>
-                </div>
-            </div>
             <div class="card-body">
                 <form action="{{ route('usuarios.update', $usuario->id) }}" method="post">
                     @csrf

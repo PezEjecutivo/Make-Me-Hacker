@@ -21,52 +21,23 @@
     @foreach ($desafios as $desafio)
     <article class="card" data-desafio-id="{{ $desafio->id }}">
       <div class="card__preview">
-        @if ($desafio->nombre=="css")
-        <img src="{{asset("images/desafios/css.png")}}" alt="Lakeview Elegance preview">
-        <div class="card__price">
-          {{$desafio->dificultad}}
-        </div>
-      </div>
-      <div class="card__content">
-        <h2 class="card__title">Desafio normal (CSS)</h2>
-
-        @elseif($desafio->nombre=="java")
-        <img src="{{asset("images/desafios/java.png")}}" alt="Lakeview Elegance preview">
-        <div class="card__price">
-          {{$desafio->dificultad}}
-        </div>
-      </div>
-      <div class="card__content">
-        <h2 class="card__title">Desafio normal (JAVA)</h2>
-
-        @elseif($desafio->nombre=="js")
-        <img src="{{asset("images/desafios/js.png")}}" alt="Lakeview Elegance preview">
-        <div class="card__price">
-          {{$desafio->dificultad}}
-        </div>
-      </div>
-      <div class="card__content">
-        <h2 class="card__title">Desafio normal (JS)</h2>
-
-        @elseif($desafio->nombre=="php")
-        <img src="{{asset("images/desafios/php.png")}}" alt="Lakeview Elegance preview">
-        <div class="card__price">
-          {{$desafio->dificultad}}
-        </div>
-      </div>
-      <div class="card__content">
-        <h2 class="card__title">Desafio normal (PHP)</h2>
-
+        @if ($desafio->nombre == "css")
+        <img src="{{ asset('images/desafios/css.png') }}" alt="CSS Desafio">
+        @elseif($desafio->nombre == "java")
+        <img src="{{ asset('images/desafios/java.png') }}" alt="Java Desafio">
+        @elseif($desafio->nombre == "js")
+        <img src="{{ asset('images/desafios/js.png') }}" alt="JS Desafio">
+        @elseif($desafio->nombre == "php")
+        <img src="{{ asset('images/desafios/php.png') }}" alt="PHP Desafio">
         @else
-        <img src="{{asset("images/desafios/python.png")}}" alt="Lakeview Elegance preview">
+        <img src="{{ asset('images/desafios/python.png') }}" alt="Python Desafio">
+        @endif
         <div class="card__price">
           {{$desafio->dificultad}}
         </div>
       </div>
       <div class="card__content">
-        <h2 class="card__title">Desafio normal (PYTHON)</h2>
-
-        @endif
+        <h2 class="card__title">Desafio normal ({{ strtoupper($desafio->nombre) }})</h2>
         <p class="card__address">
           {{$desafio->descripcion}}
         </p>
@@ -87,12 +58,17 @@
           method: 'POST',
           data: {
             _token: "{{ csrf_token() }}",
-            desafio_id: desafioId
+            desafio_id: desafioId,
+            active: 1,
+            complete: 0
           },
           success: function(response) {
             if (response.success) {
-              alert('Click recorded successfully.');
+              alert('Desafio added successfully.');
             }
+          },
+          error: function(xhr) {
+            alert('An error occurred: ' + xhr.status + ' ' + xhr.statusText);
           }
         });
       });

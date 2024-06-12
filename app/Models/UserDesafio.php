@@ -9,7 +9,7 @@ class UserDesafio extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'desafio_id'];
+    protected $fillable = ['user_id', 'desafio_id', 'active', 'complete'];
 
     public function desafio()
     {

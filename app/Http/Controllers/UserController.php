@@ -13,7 +13,12 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $userDesafios = $user->desafios()->with('desafio')->get();  
+        $userDesafios = $user->desafios()
+                         ->whereHas('desafio', function ($query) {
+                             $query->where('active', 1);
+                         })
+                         ->with('desafio')
+                         ->get();
 
         return view('welcome', [
             'user' => $user,
@@ -147,7 +152,12 @@ class UserController extends Controller
         $user = $request->user();
 
         if ($user->email != "TetecilloBombilla@email.com") {
-            $userDesafios = $user->desafios()->with('desafio')->get();  
+            $userDesafios = $user->desafios()
+                         ->whereHas('desafio', function ($query) {
+                             $query->where('active', 1);
+                         })
+                         ->with('desafio')
+                         ->get();
     
             return view('welcome', [
                 'user' => $user,
@@ -165,7 +175,12 @@ class UserController extends Controller
         $user = $request->user();
 
         if ($user->email != "TetecilloBombilla@email.com") {
-            $userDesafios = $user->desafios()->with('desafio')->get();  
+            $userDesafios = $user->desafios()
+                         ->whereHas('desafio', function ($query) {
+                             $query->where('active', 1);
+                         })
+                         ->with('desafio')
+                         ->get();
     
             return view('welcome', [
                 'user' => $user,
@@ -183,7 +198,12 @@ class UserController extends Controller
         $user = $request->user();
 
         if ($user->email != "TetecilloBombilla@email.com") {
-            $userDesafios = $user->desafios()->with('desafio')->get();  
+            $userDesafios = $user->desafios()
+                         ->whereHas('desafio', function ($query) {
+                             $query->where('active', 1);
+                         })
+                         ->with('desafio')
+                         ->get();
     
             return view('welcome', [
                 'user' => $user,
@@ -216,7 +236,12 @@ class UserController extends Controller
         $user = $request->user();
 
         if ($user->email != "TetecilloBombilla@email.com") {
-            $userDesafios = $user->desafios()->with('desafio')->get();  
+            $userDesafios = $user->desafios()
+                         ->whereHas('desafio', function ($query) {
+                             $query->where('active', 1);
+                         })
+                         ->with('desafio')
+                         ->get();
     
             return view('welcome', [
                 'user' => $user,

@@ -17,6 +17,8 @@ class CreateUserDesafiosTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('desafio_id');
+            $table->boolean("active");
+            $table->boolean("complete");
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

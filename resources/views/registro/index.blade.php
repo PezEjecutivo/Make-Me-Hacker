@@ -4,6 +4,8 @@
 
 <div class="container">
     <h2>Iniciar Sesion</h2>
+
+    <!-- Formulario de Login -->
     <form action="{{route("login.iniciar")}}" method="POST">
         @CSRF
         <div style="margin: 10px;" class="form-group">

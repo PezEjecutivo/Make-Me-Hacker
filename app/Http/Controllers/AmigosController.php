@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Amigos;
 
+// CRUD basico de amigos
 class AmigosController extends Controller
 {
     public function index()

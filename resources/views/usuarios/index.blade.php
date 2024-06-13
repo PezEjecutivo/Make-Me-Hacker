@@ -27,6 +27,8 @@
                 </tr>
             </thead>
             <tbody>
+
+                <!-- Creamos un contador para poner a los 3 primeros de distintos colores (respectivos a sus medallas (Oro, Plata, Bronce)) -->
                 <?php $counter = 0 ?>
                 @foreach ($users as $user)
                 <?php $counter++ ?>

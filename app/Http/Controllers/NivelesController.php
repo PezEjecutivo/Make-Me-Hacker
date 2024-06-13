@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Niveles;
 
+// Funciones basicas de CRUD
 class NivelesController extends Controller
 {
     public function index()

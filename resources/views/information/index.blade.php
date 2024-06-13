@@ -1,9 +1,11 @@
 @extends('../layouts')
 
 @section('content')
+
 <head>
     <title>Make me hacker! - Información</title>
 </head>
+<!-- Acordeones para facilitar la muestra de informacion y no sobre saturar -->
 <div class="faq-container">
     <details>
         <summary>

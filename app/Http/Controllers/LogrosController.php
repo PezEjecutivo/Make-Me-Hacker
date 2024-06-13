@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Logros;
 
+// CRUD simple de los logros
 class LogrosController extends Controller
 {
     public function index()

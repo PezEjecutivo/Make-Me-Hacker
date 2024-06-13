@@ -17,7 +17,7 @@ Route::get('/information', function () {
     return view('information/index');
 })->middleware('auth');
 
-//RUTAS AUTOMATICAS / CRUD
+//RUTAS AUTOMATICAS / CRUD Sencillo
 Route::resource("", UserController::class)->middleware('auth');
 Route::resource('logros', LogrosController::class)->middleware('auth');
 Route::resource('programadores', DeveloperController::class)->middleware('auth');

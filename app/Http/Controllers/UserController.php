@@ -13,12 +13,13 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
+        // Traemos solamente los desafios del usuario activos
         $userDesafios = $user->desafios()
-                         ->whereHas('desafio', function ($query) {
-                             $query->where('active', 1);
-                         })
-                         ->with('desafio')
-                         ->get();
+            ->whereHas('desafio', function ($query) {
+                $query->where('active', 1);
+            })
+            ->with('desafio')
+            ->get();
 
         return view('welcome', [
             'user' => $user,
@@ -28,8 +29,10 @@ class UserController extends Controller
 
     public function ranking(Request $request)
     {
+        // Traemos todos los usuarios ordenados por score
         $users = User::all()->sortByDesc('score');
 
+        // Traemos un contador de 3
         $toppers = 3;
 
         return view('usuarios.index', ['users' => $users, "toppers" => $toppers]);
@@ -37,28 +40,31 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        //Validamos los datos
+        // Validamos los datos
         $request->validate([
             'name' => 'required|max:70|min:5',
             'email' => 'required',
             'password' => 'required',
         ]);
 
-        //Guardamos en bd los datos
+        // Guardamos en bd los datos
         User::create($request->all());
 
-        //Redireccionamos a la vista
+        // Redireccionamos a la vista
         return redirect()->route('login')->with('success', 'Usuario creado correctamente');
     }
 
     public function saveScore(Request $request)
     {
+        // Recibimos el score
         $request->validate([
             'score' => 'required|integer',
         ]);
 
+        // Recibimos el usuario
         $user = $request->user();
 
+        // Asignamos el score al usuario y guardamos
         $user->score = $request->input('score');
         $user->save();
 
@@ -72,6 +78,7 @@ class UserController extends Controller
 
     public function edit($id)
     {
+        // Recogemos el usuario en cuestion
         $usuario = User::find($id);
 
 
@@ -87,16 +94,16 @@ class UserController extends Controller
 
     public function update(Request $request, string $id)
     {
-        //Validamos los datos
+        // Validamos los datos
         $request->validate([
             'name' => 'required|max:70|min:5',
             'email' => 'required',
         ]);
 
-        //Cargamos la discoteca a modificar
+        // Cargamos la discoteca a modificar
         $usuarios = User::find($id);
 
-        //modificamos los datos en bd
+        // modificamos los datos en bd
         $usuarios->update($request->all());
 
         return redirect()->route('usuarios.index')
@@ -105,8 +112,10 @@ class UserController extends Controller
 
     public function destroy(string $id)
     {
+        // Cogemos el usuario en cuestion
         $usuarios = User::find($id);
 
+        // Lo borramos
         $usuarios->delete();
 
         return redirect()->route('usuarios.index')
@@ -120,11 +129,13 @@ class UserController extends Controller
 
     public function iniciarSesion(Request $request)
     {
+        // Recibimos el email y la contraseña
         $sesion = $request->validate([
             'email' => ['required'],
             'password' => ['required']
         ]);
 
+        // Si esta autentificado iniciamos sesion
         if (auth()->attempt($sesion)) {
             $request->session()->regenerate();
             return redirect('/');
@@ -138,6 +149,7 @@ class UserController extends Controller
     }
     public function logout(Request $request)
     {
+        // Cerramos sesion
         auth()->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
@@ -151,14 +163,15 @@ class UserController extends Controller
 
         $user = $request->user();
 
+        // Comprobamos que sea admin (es decir, tenga un correo en especifico)
         if ($user->email != "TetecilloBombilla@email.com") {
             $userDesafios = $user->desafios()
-                         ->whereHas('desafio', function ($query) {
-                             $query->where('active', 1);
-                         })
-                         ->with('desafio')
-                         ->get();
-    
+                ->whereHas('desafio', function ($query) {
+                    $query->where('active', 1);
+                })
+                ->with('desafio')
+                ->get();
+
             return view('welcome', [
                 'user' => $user,
                 'userDesafios' => $userDesafios
@@ -174,14 +187,15 @@ class UserController extends Controller
 
         $user = $request->user();
 
+        // Comprobamos que sea admin (es decir, tenga un correo en especifico)
         if ($user->email != "TetecilloBombilla@email.com") {
             $userDesafios = $user->desafios()
-                         ->whereHas('desafio', function ($query) {
-                             $query->where('active', 1);
-                         })
-                         ->with('desafio')
-                         ->get();
-    
+                ->whereHas('desafio', function ($query) {
+                    $query->where('active', 1);
+                })
+                ->with('desafio')
+                ->get();
+
             return view('welcome', [
                 'user' => $user,
                 'userDesafios' => $userDesafios
@@ -197,14 +211,15 @@ class UserController extends Controller
 
         $user = $request->user();
 
+        // Comprobamos que sea admin (es decir, tenga un correo en especifico)
         if ($user->email != "TetecilloBombilla@email.com") {
             $userDesafios = $user->desafios()
-                         ->whereHas('desafio', function ($query) {
-                             $query->where('active', 1);
-                         })
-                         ->with('desafio')
-                         ->get();
-    
+                ->whereHas('desafio', function ($query) {
+                    $query->where('active', 1);
+                })
+                ->with('desafio')
+                ->get();
+
             return view('welcome', [
                 'user' => $user,
                 'userDesafios' => $userDesafios
@@ -216,12 +231,15 @@ class UserController extends Controller
 
     public function storeUser(Request $request)
     {
+
+        // Recibimos los datos
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
         ]);
 
+        // Creamos un nuevo usuario y le asignamos los datos para guardarlo
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -235,14 +253,15 @@ class UserController extends Controller
     {
         $user = $request->user();
 
+        // Comprobamos que sea admin (es decir, tenga un correo en especifico)
         if ($user->email != "TetecilloBombilla@email.com") {
             $userDesafios = $user->desafios()
-                         ->whereHas('desafio', function ($query) {
-                             $query->where('active', 1);
-                         })
-                         ->with('desafio')
-                         ->get();
-    
+                ->whereHas('desafio', function ($query) {
+                    $query->where('active', 1);
+                })
+                ->with('desafio')
+                ->get();
+
             return view('welcome', [
                 'user' => $user,
                 'userDesafios' => $userDesafios
@@ -255,12 +274,15 @@ class UserController extends Controller
 
     public function updateUser(Request $request, $id)
     {
+
+        // Recibimos los datos
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
             'password' => 'nullable|string|min:8|confirmed',
         ]);
 
+        // Creamos un nuevo usuario y le asignamos los datos para editarlo
         $user = User::findOrFail($id);
         $user->name = $request->name;
         $user->email = $request->email;
@@ -277,9 +299,10 @@ class UserController extends Controller
     {
         $user = $request->user();
 
+        // Comprobamos que sea admin (es decir, tenga un correo en especifico)
         if ($user->email != "TetecilloBombilla@email.com") {
-            $userDesafios = $user->desafios()->with('desafio')->get(); 
-    
+            $userDesafios = $user->desafios()->with('desafio')->get();
+
             return view('welcome', [
                 'user' => $user,
                 'userDesafios' => $userDesafios
@@ -297,9 +320,9 @@ class UserController extends Controller
         return view('information.cookies');
     }
 
-    public function sobreNosotros(){
+    public function sobreNosotros()
+    {
 
         return view("information.sobreNosotros");
-
     }
 }

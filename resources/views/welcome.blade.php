@@ -9,15 +9,19 @@
             0% {
                 transform: translate(0, 0);
             }
+
             25% {
                 transform: translate(-5px, -5px);
             }
+
             50% {
                 transform: translate(5px, 5px);
             }
+
             75% {
                 transform: translate(-5px, -5px);
             }
+
             100% {
                 transform: translate(0, 0);
             }
@@ -86,12 +90,17 @@
             @endforeach
             @endif -->
         </div>
+
+
         <div class="container">
+            <!-- Mostramos el dinero y el pc para poder jugar -->
             <div class="score-display">
                 Dinero: <div id="display-score"></div>
             </div>
             <div style="color:red; font-size:32px" id="countdown-timer"></div>
             <img id="pc" src="{{ asset('images/menu/Logo.svg') }}" alt="Logo" onclick="getScore()">
+
+            <!-- Formulario para guardar los datos -->
             <form action="{{ route('save-score') }}" method="post" id="save-score-form">
                 @csrf
                 <div class="hidden-input">
@@ -101,7 +110,7 @@
             </form>
         </div>
 
-        
+
         <div class="container" style="display:flex; justify-content: flex-start; gap:10px; color: white; min-width:340px">
             @if ($userDesafios)
             <p>Desafios activados: </p>
@@ -118,84 +127,125 @@
     </div>
 
     <script>
-    var score = parseInt("{{ $user->score }}");
-    var actualScore = score;
-    var userDesafios = @json($userDesafios);
-    var completedDesafios = {};
-    var timer;
+        //Inicializacion de la variable
+        var score = parseInt("{{ $user->score }}");
+        var actualScore = score;
+        var userDesafios = @json($userDesafios);
+        var completedDesafios = {};
+        var timer;
 
-    document.getElementById("display-score").innerHTML = score + "$";
-    document.getElementById("input-score").value = score;
-
-    const getScore = () => {
-        ++score;
+        //Cogemos el score en html para cambiarlo al correspondiente segun la base de datos
         document.getElementById("display-score").innerHTML = score + "$";
         document.getElementById("input-score").value = score;
 
-        let displayScoreDiv = document.getElementById("pc");
-        displayScoreDiv.classList.add("shake");
+        //Hacemos una funcion para cada vez que clickemos sumar el score
+        const getScore = () => {
+            ++score;
+            document.getElementById("display-score").innerHTML = score + "$";
+            document.getElementById("input-score").value = score;
 
-        setTimeout(() => {
-            displayScoreDiv.classList.remove("shake");
-        }, 500);
+            //Le añadimos la clase para ponerle una animacion con time out
+            let displayScoreDiv = document.getElementById("pc");
+            displayScoreDiv.classList.add("shake");
 
-        checkDesafios();
-    };
+            //Hacemos que la animacion acabe
+            setTimeout(() => {
+                displayScoreDiv.classList.remove("shake");
+            }, 500);
 
-    const checkDesafios = () => {
-        userDesafios.forEach(desafio => {
-            console.log(actualScore+parseInt(desafio.desafio.dificultad))
-            if (!completedDesafios[desafio.desafio.id] && score > actualScore+parseInt(desafio.desafio.dificultad)) {
-                score += parseInt(desafio.desafio.recompensa);
-                document.getElementById("display-score").innerHTML = score + "$";
-                document.getElementById("input-score").value = score;
-                completedDesafios[desafio.desafio.id] = true;
-                stopTimerAndSaveScore();
-            }
-        });
-    };
+            //Llamamos a la funcion para comprobar si se ha cumplido los desafios
+            checkDesafios();
+        };
 
-    const penalizeUncompletedDesafios = () => {
-        userDesafios.forEach(desafio => {
-            if (!completedDesafios[desafio.desafio.id]) {
-                score -= desafio.desafio.dificultad * 2;
-                if (score < 0) {
-                    score = 0;
+        //Funcion para comprobar los desafios
+        const checkDesafios = () => {
+
+            //Hacemos un for each a los desafios, para sacar cada desafio independiente y poder comprobarlo
+            userDesafios.forEach(desafio => {
+
+                //Comprobamos que el score sea adecuado al desafio
+                if (!completedDesafios[desafio.desafio.id] && score > actualScore + parseInt(desafio.desafio.dificultad)) {
+                    //Aumentamos el score con la recompensa
+                    score += parseInt(desafio.desafio.recompensa);
+                    document.getElementById("display-score").innerHTML = score + "$";
+                    document.getElementById("input-score").value = score;
+
+                    //Si lo completamos, lo ponemos en true
+                    completedDesafios[desafio.desafio.id] = true;
+
+                    //Paramos el contador y guardamos los datos
+                    stopTimerAndSaveScore();
                 }
-                document.getElementById("display-score").innerHTML = score + "$";
-                document.getElementById("input-score").value = score;
-            }
-        });
-        stopTimerAndSaveScore();
-    };
+            });
+        };
 
-    const stopTimerAndSaveScore = () => {
-        clearInterval(timer);
-        document.getElementById("save-score-form").submit();
-    };
+        //Funcion para penalizar el fallar un desafio
+        const penalizeUncompletedDesafios = () => {
 
-    const startCountdown = () => {
-        var timeLeft = 180; 
-        const timerDisplay = document.getElementById("countdown-timer");
+            //Hacemos un for each a los desafios, para sacar cada desafio independiente y poder comprobarlo
+            userDesafios.forEach(desafio => {
 
-        timer = setInterval(() => {
-            timeLeft--;
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            timerDisplay.innerHTML = `Tiempo restante: ${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
-            
-            if (timeLeft <= 0) {
-                clearInterval(timer);
-                timerDisplay.innerHTML = "Se acabo el tiempo!";
-                penalizeUncompletedDesafios();
-            }
-        }, 1000);
-    };
+                //Si no esta completado 
+                if (!completedDesafios[desafio.desafio.id]) {
 
-    if (userDesafios.length > 0) {
-        startCountdown();
-    }
-</script>
+                    //Bajamos el score, pero nunca haciendo que este por debajo de 0
+                    score -= desafio.desafio.dificultad * 2;
+                    if (score < 0) {
+                        score = 0;
+                    }
+                    document.getElementById("display-score").innerHTML = score + "$";
+                    document.getElementById("input-score").value = score;
+                }
+            });
+
+            //Paramos el contador y guardamos los datos
+            stopTimerAndSaveScore();
+        };
+
+        //Paramos el contador y guardamos los datos
+        const stopTimerAndSaveScore = () => {
+
+            //Limpiamos el contador
+            clearInterval(timer);
+
+            //Activamos el formulario para guardar los datos
+            document.getElementById("save-score-form").submit();
+        };
+
+        //Iniciamos el contador
+        const startCountdown = () => {
+
+            //Lo iniciamos con un tiempo de 3 minutos, lo cual es util
+            var timeLeft = 180;
+            const timerDisplay = document.getElementById("countdown-timer");
+
+            //Hacemos el contador
+            timer = setInterval(() => {
+
+                //Vamos restando 1 al tiempo cada segundo que pasa
+                timeLeft--;
+
+                //Formateamos el valor para que lo de en minutos y segundos
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerDisplay.innerHTML = `Tiempo restante: ${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+
+                //Comprobamos si ha llegado a 0
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    timerDisplay.innerHTML = "Se acabo el tiempo!";
+
+                    //Penalizamos al jugador, ya que si hubiera cumplido el desafio, el timer se hubiera parado antes
+                    penalizeUncompletedDesafios();
+                }
+            }, 1000);
+        };
+
+        //Comprobamos que tenga desafios para poner el timer
+        if (userDesafios.length > 0) {
+            startCountdown();
+        }
+    </script>
 
 </body>
 @endsection

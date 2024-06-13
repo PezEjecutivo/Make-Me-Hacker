@@ -14,14 +14,19 @@
   <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
   <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Libreria importada para las alertas -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 
 <body>
   <div class="cards">
+    <!-- Hacemos un foreach de desafios para mostrar cada desafio -->
     @foreach ($desafios as $desafio)
     <article class="card" data-desafio-id="{{ $desafio->id }}">
       <div class="card__preview">
+
+        <!-- Dependiendo del nombre le asignamos una imagen -->
         @if ($desafio->nombre == "css")
         <img src="{{ asset('images/desafios/css.png') }}" alt="CSS Desafio">
         @elseif($desafio->nombre == "java")
@@ -51,9 +56,16 @@
   </div>
 
   <script>
+    // Script para que cuando clickemos al formulario se añada a la base de datos
     $(document).ready(function() {
+
+      // Cuando clickamos en una carta
       $('.card').on('click', function() {
+
+        // Obtenemos el id del desafio al que clickamos
         var desafioId = $(this).data('desafio-id');
+
+        // Hacemos una funcion ajax para mandarnos a la ruta en cuestion con la informacion necesaria
         $.ajax({
           url: "{{ route('click.store') }}",
           method: 'POST',
@@ -63,6 +75,8 @@
             active: 1,
             complete: 0
           },
+
+          // En caso de que funcione mostrarmos un mensaje de confirmacion
           success: function(response) {
             if (response.success) {
               Swal.fire({
@@ -73,10 +87,12 @@
               });
             }
           },
+
+          // En caso de que no funcione mostrarmos un mensaje de error
           error: function(xhr) {
             Swal.fire({
               title: 'Error!',
-              text: 'An error occurred: ' + xhr.status + ' ' + xhr.statusText,
+              text: 'Ha ocurrido un error: ' + xhr.status + ' ' + xhr.statusText,
               icon: 'error',
               confirmButtonText: 'OK'
             });

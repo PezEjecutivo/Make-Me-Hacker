@@ -12,18 +12,6 @@ use Illuminate\Auth\Events\Registered;
 class LoginRegisterController extends Controller
 {
     /**
-     * Instantiate a new LoginRegisterController instance.
-     */
-    // public function __construct()
-    // {
-    //     $this->middleware('guest')->except([
-    //         'logout', 'home'
-    //     ]);
-    //     $this->middleware('auth')->only('logout', 'home');
-    //     $this->middleware('verified')->only('home');
-    // }
-
-    /**
      * Display a registration form.
      *
      * @return \Illuminate\Http\Response
@@ -41,20 +29,24 @@ class LoginRegisterController extends Controller
      */
     public function store(Request $request)
     {
+        // Comprobamos los datos
         $request->validate([
             'name' => 'required|string|max:250',
             'email' => 'required|string|email:rfc,dns|max:250|unique:users,email',
             'password' => 'required|string|min:8|confirmed'
         ]);
 
+        // Creamos el usuario
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
 
+        // Regristramos al usuario
         event(new Registered($user));
 
+        // Hacemos que las credenciales de inicio de sesion sea email y password
         $credentials = $request->only('email', 'password');
         Auth::attempt($credentials);
         $request->session()->regenerate();
@@ -79,23 +71,24 @@ class LoginRegisterController extends Controller
      */
     public function authenticate(Request $request)
     {
+        // Comprobamos que las credenciales sean correctas
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required'
         ]);
 
-        if(Auth::attempt($credentials))
-        {
+        // Comprobamosque este autentificado
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->route('home');
         }
 
+        // Si hay algun error
         return back()->withErrors([
             'email' => 'Your provided credentials do not match in our records.',
         ])->onlyInput('email');
+    }
 
-    } 
-    
     /**
      * Display a home to authenticated & verified users.
      *
@@ -105,23 +98,25 @@ class LoginRegisterController extends Controller
     {
         $user = $request->user();
 
-        if(!$user){
+        // Si no tiene sesion le mandamos al login
+        if (!$user) {
             return redirect()->route('login');
         }
 
+        // Si tiene sesion lo enviamos al juego conlos datos
         $userDesafios = $user->desafios()
-                         ->whereHas('desafio', function ($query) {
-                             $query->where('active', 1);
-                         })
-                         ->with('desafio')
-                         ->get();
+            ->whereHas('desafio', function ($query) {
+                $query->where('active', 1);
+            })
+            ->with('desafio')
+            ->get();
 
         return view('welcome', [
             'user' => $user,
             'userDesafios' => $userDesafios
         ]);
-    } 
-    
+    }
+
     /**
      * Log out the user from application.
      *
@@ -130,11 +125,11 @@ class LoginRegisterController extends Controller
      */
     public function logout(Request $request)
     {
+        // Cerramos sesion
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('login')
             ->withSuccess('You have logged out successfully!');
-    }    
-
+    }
 }

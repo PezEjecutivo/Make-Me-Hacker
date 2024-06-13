@@ -12,6 +12,7 @@ class AboutUsController extends Controller
         return view('information.about-us');
     }
 
+    // Funcion para enviar email
     public function sendContactForm(Request $request)
     {
         $request->validate([

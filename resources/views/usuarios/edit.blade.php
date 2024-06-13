@@ -13,6 +13,8 @@
 
         <div class="card">
             <div class="card-body">
+
+                <!-- Formulario para editar usuarios (solo de Admin) -->
                 <form action="{{ route('usuarios.update', $usuario->id) }}" method="post">
                     @csrf
                     @method("PUT")

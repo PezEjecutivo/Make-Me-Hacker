@@ -15,6 +15,8 @@
                 </div>
             </div>
             <div class="card-body">
+
+                <!-- Formulario para crear usuarios, solo de admins -->
                 <form action="{{ route('usuarios.store') }}" method="post">
                     @csrf
 

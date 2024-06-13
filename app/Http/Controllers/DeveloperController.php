@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use app\Models\Developers;
 
+// CRUD simple de los desarrolladores
 class DeveloperController extends Controller
 {
     public function index()

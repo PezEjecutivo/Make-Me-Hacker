@@ -6,18 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
+// Verificacion de usuario
 class VerificationController extends Controller
 {
-    /**
-     * Instantiate a new VerificationController instance.
-     */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    //     $this->middleware('signed')->only('verify');
-    //     $this->middleware('throttle:6,1')->only('verify', 'resend');
-    // }
-
     /**
      * Display an email verification notice.
      *
@@ -25,7 +16,7 @@ class VerificationController extends Controller
      */
     public function notice(Request $request)
     {
-        return $request->user()->hasVerifiedEmail() 
+        return $request->user()->hasVerifiedEmail()
             ? redirect()->route('/') : view('auth.verify-email');
     }
 
@@ -37,6 +28,7 @@ class VerificationController extends Controller
      */
     public function verify(EmailVerificationRequest $request)
     {
+        // Una vez esta verificado, lo mandamos al juego
         $request->fulfill();
         return redirect("/");
     }
@@ -49,9 +41,9 @@ class VerificationController extends Controller
      */
     public function resend(Request $request)
     {
+        // Volvemos a enviar el mensaje si no  le ha llegado
         $request->user()->sendEmailVerificationNotification();
         return back()
-        ->withSuccess('A fresh verification link has been sent to your email address.');
+            ->withSuccess('A fresh verification link has been sent to your email address.');
     }
-
 }

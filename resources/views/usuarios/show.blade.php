@@ -11,6 +11,7 @@
         </div>
         @endif
 
+        <!-- Mostramos los datos del usuario -->
         <div style="display: flex; flex-direction: column; margin-top: 200px; max-width: 800px; margin-left: auto; margin-right: auto; justify-content: center; align-items: center; background-color: rgba(255, 255, 255, 0.1); border-radius: 10px; box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5); padding: 20px;">
             <div style="font-size: 24px; font-weight: bold; color: white;">Perfil</div>
             <div style="width: 100%;">

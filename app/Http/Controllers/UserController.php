@@ -64,6 +64,19 @@ class UserController extends Controller
         // Recibimos el usuario
         $user = $request->user();
 
+
+        $userDesafios = $user->desafios()
+            ->whereHas('desafio', function ($query) {
+                $query->where('active', 1);
+            })
+            ->with('desafio')
+            ->get();
+
+        foreach ($userDesafios as $userDesafio) {
+            $userDesafio->active = 0;
+            $userDesafio->save();
+        }
+
         // Asignamos el score al usuario y guardamos
         $user->score = $request->input('score');
         $user->save();

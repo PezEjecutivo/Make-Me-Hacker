@@ -1,6 +1,14 @@
 @extends('../layouts')
 
 @section('content')
+
+<head>
+    <meta charset="UTF-8">
+    <title>Make me hacker - Sobre nosotros!!</title>
+
+    <!-- Libreria importada para las alertas -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</head>
 <div class="row justify-content-center mt-3">
     <div class="col-md-12">
         @if ($message = Session::get('success'))

@@ -71,26 +71,22 @@
         .hidden-input {
             display: none;
         }
+
+        .main-container {
+            display: flex;
+            flex-direction: row;
+        }
+
+        @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <div style="display:flex; flex-direction: row;">
-
-        <div class="container" style="display:flex; justify-content: flex-start; gap:10px; color: white; min-width:340px">
-            <!-- @if ($userDesafios) -->
-            <p>Programadores activados: </p>
-            <!-- @foreach ($userDesafios as $userDesafio)
-
-            <div>
-                <p>Desafio de {{$userDesafio->desafio->nombre}}</p>
-                <p>Tienes que conseguir {{$userDesafio->desafio->dificultad}}</p>
-            </div>
-
-            @endforeach
-            @endif -->
-        </div>
-
+    <div class="main-container">
 
         <div class="container">
             <!-- Mostramos el dinero y el pc para poder jugar -->

@@ -19,16 +19,16 @@
     <div class="background" style="z-index: -1;">
         <div style="display: flex; flex-direction: column;" class="centering">
             <div class="verification-message" style="background-color: transparent;">
-                <h1 style="background-color: transparent;">Verify Your Email Address</h1>
+                <h1 style="background-color: transparent;">404 Error - Pagina no encontrada </h1>
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success" role="alert">
                     {{ $message }}
                 </div>
                 @endif
-                <p style="background-color: transparent;">Before proceeding, please check your email for a verification link. If you did not receive the email,</p>
-                <form style="background-color: transparent;" class="d-inline" method="POST" action="{{ route('verification.resend') }}">
+                <p style="background-color: transparent;">Esta pagina no existe, revise la ruta o compruebe que tenga los permisos necesarios</p>
+                <form style="background-color: transparent;" class="d-inline" method="POST">
                     @csrf
-                    <button type="submit" class="btn btn-link p-0 m-0 align-baseline">click here to request another</button>.
+                    <button type="submit" class="btn btn-link p-0 m-0 align-baseline"><strong style="background-color: transparent;"><a style="background-color: transparent;" href="/">Haz click aqui para volver a la pagina principal</a></strong></button>.
                 </form>
             </div>
         </div>

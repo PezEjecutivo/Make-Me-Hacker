@@ -111,9 +111,17 @@ class LoginRegisterController extends Controller
             ->with('desafio')
             ->get();
 
+        // Traemos solamente los developers del usuario activos
+        $userDevelopers = $user->developers()
+            ->where('active', 1)
+            ->with('developer')
+            ->get();
+
+
         return view('welcome', [
             'user' => $user,
-            'userDesafios' => $userDesafios
+            'userDesafios' => $userDesafios,
+            'userDevelopers' => $userDevelopers,
         ]);
     }
 

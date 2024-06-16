@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/developers.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/desafios.css') }}">
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -22,7 +22,7 @@
         @foreach ($developers as $developer)
         <article class="card" data-developer-id="{{ $developer->id }}">
             <div class="card__preview">
-                <img src="{{ asset('images/developers/' . strtolower($developer->especialidad) . '.png') }}" alt="{{ $developer->especialidad }} Developer">
+                <img src="{{ asset('/images/developers/' . strtolower($developer->especialidad) . '.jpg') }}" alt="{{ $developer->especialidad }} Developer">
                 <div class="card__price">
                     ${{ $developer->precio }}
                 </div>
@@ -30,10 +30,10 @@
             <div class="card__content">
                 <h2 class="card__title">{{ $developer->nombre }}</h2>
                 <p class="card__address">
-                    {{ $developer->mejora }}
+                    Te da una mejora de {{ $developer->mejora }} por click!
                 </p>
                 <p class="card__description">
-                    Especialidad: {{ $developer->especialidad }}
+                    Programador especializado en el lenguaje de: {{ $developer->especialidad }}
                 </p>
             </div>
         </article>
@@ -45,7 +45,7 @@
             $('.card').on('click', function() {
                 var developerId = $(this).data('developer-id');
                 $.ajax({
-                    url: "{{ route('developers.show', ['developer' => '']) }}/" + developerId,
+                    url: "/developers/" + developerId,
                     method: 'GET',
                     success: function(response) {
                         Swal.fire({

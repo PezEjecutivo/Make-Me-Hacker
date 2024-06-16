@@ -11,9 +11,9 @@ return new class extends Migration
         Schema::create('developers', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->integer('precio');
+            $table->integer('mejora');
             $table->string('especialidad');
-            $table->decimal('tarifa', 8, 2);
-            $table->boolean('disponibilidad')->default(true);
             $table->timestamps();
         });
     }

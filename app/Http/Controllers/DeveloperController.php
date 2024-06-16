@@ -2,39 +2,61 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\Developers;
 use Illuminate\Http\Request;
-use app\Models\Developers;
 
-// CRUD simple de los desarrolladores
 class DeveloperController extends Controller
 {
     public function index()
     {
-        return Developers::all();
+        $developers = Developers::all();
+        return view('developers.index', compact('developers'));
+    }
+
+    public function create()
+    {
+        return view('developers.create');
     }
 
     public function store(Request $request)
     {
-        $developers = Developers::create($request->all());
-        return response()->json($developers, 201);
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'precio' => 'required|numeric',
+            'mejora' => 'required|string|max:255',
+            'especialidad' => 'required|string|max:255',
+        ]);
+
+        Developers::create($request->all());
+        return redirect()->route('developers.index')->with('success', 'Developer created successfully.');
     }
 
-    public function show($id)
+    public function show(Developers $developer)
     {
-        return Developers::findOrFail($id);
+        return view('developers.show', compact('developer'));
     }
 
-    public function update(Request $request, $id)
+    public function edit(Developers $developer)
     {
-        $developers = Developers::findOrFail($id);
-        $developers->update($request->all());
-        return response()->json($developers, 200);
+        return view('developers.edit', compact('developer'));
     }
 
-    public function destroy($id)
+    public function update(Request $request, Developers $developer)
     {
-        Developers::destroy($id);
-        return response()->json(null, 204);
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'precio' => 'required|numeric',
+            'mejora' => 'required|string|max:255',
+            'especialidad' => 'required|string|max:255',
+        ]);
+
+        $developer->update($request->all());
+        return redirect()->route('developers.index')->with('success', 'Developer updated successfully.');
+    }
+
+    public function destroy(Developers $developer)
+    {
+        $developer->delete();
+        return redirect()->route('developers.index')->with('success', 'Developer deleted successfully.');
     }
 }

@@ -90,9 +90,15 @@
 
           // En caso de que no funcione mostrarmos un mensaje de error
           error: function(xhr) {
+            var errorMessage = 'Ha ocurrido un error: ' + xhr.status + ' ' + xhr.statusText;
+            if (xhr.responseJSON && xhr.responseJSON.message) {
+              errorMessage = xhr.responseJSON.message;
+            }
+
+            // En caso de que tengamos el desafio ya activado
             Swal.fire({
-              title: 'Error!',
-              text: 'Ha ocurrido un error: ' + xhr.status + ' ' + xhr.statusText,
+              title: 'Ya tienes el desafio!',
+              text: errorMessage,
               icon: 'error',
               confirmButtonText: 'OK'
             });

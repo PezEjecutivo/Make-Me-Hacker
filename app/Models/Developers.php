@@ -13,9 +13,8 @@ class Developers extends Model
 
     protected $fillable = [
         'nombre',
+        'precio',
+        'mejora',
         'especialidad',
-        'tarifa',
-        'disponibilidad',
     ];
-
 }

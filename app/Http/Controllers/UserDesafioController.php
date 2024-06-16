@@ -16,6 +16,15 @@ class UserDesafioController extends Controller
             'active' => 'required|boolean',
         ]);
 
+        $existingDesafio = UserDesafio::where('user_id', Auth::id())
+            ->where('desafio_id', $request->desafio_id)
+            ->where('active', true)
+            ->first();
+
+        if ($existingDesafio) {
+            return response()->json(['success' => false, 'message' => 'Ya tienes este desafio activado, no puedes tener varias veces el mismo desafio!.'], 400);
+        }
+
         UserDesafio::create([
             'user_id' => Auth::id(),
             'desafio_id' => $request->desafio_id,
@@ -45,8 +54,8 @@ class UserDesafioController extends Controller
     public function getActiveDesafios()
     {
         $userDesafios = UserDesafio::where('user_id', Auth::id())
-                                    ->where('active', 1)
-                                    ->get();
+            ->where('active', 1)
+            ->get();
 
         return response()->json(['userDesafios' => $userDesafios]);
     }

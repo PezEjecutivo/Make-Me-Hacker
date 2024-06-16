@@ -177,7 +177,7 @@ class UserController extends Controller
         $user = $request->user();
 
         // Comprobamos que sea admin (es decir, tenga un correo en especifico)
-        if ($user->email != "TetecilloBombilla@email.com") {
+        if ($user->email != "waterlolbusiness@hotmail.com") {
             $userDesafios = $user->desafios()
                 ->whereHas('desafio', function ($query) {
                     $query->where('active', 1);
@@ -201,7 +201,7 @@ class UserController extends Controller
         $user = $request->user();
 
         // Comprobamos que sea admin (es decir, tenga un correo en especifico)
-        if ($user->email != "TetecilloBombilla@email.com") {
+        if ($user->email != "waterlolbusiness@hotmail.com") {
             $userDesafios = $user->desafios()
                 ->whereHas('desafio', function ($query) {
                     $query->where('active', 1);
@@ -225,7 +225,7 @@ class UserController extends Controller
         $user = $request->user();
 
         // Comprobamos que sea admin (es decir, tenga un correo en especifico)
-        if ($user->email != "TetecilloBombilla@email.com") {
+        if ($user->email != "waterlolbusiness@hotmail.com") {
             $userDesafios = $user->desafios()
                 ->whereHas('desafio', function ($query) {
                     $query->where('active', 1);
@@ -267,7 +267,7 @@ class UserController extends Controller
         $user = $request->user();
 
         // Comprobamos que sea admin (es decir, tenga un correo en especifico)
-        if ($user->email != "TetecilloBombilla@email.com") {
+        if ($user->email != "waterlolbusiness@hotmail.com") {
             $userDesafios = $user->desafios()
                 ->whereHas('desafio', function ($query) {
                     $query->where('active', 1);
@@ -313,7 +313,7 @@ class UserController extends Controller
         $user = $request->user();
 
         // Comprobamos que sea admin (es decir, tenga un correo en especifico)
-        if ($user->email != "TetecilloBombilla@email.com") {
+        if ($user->email != "waterlolbusiness@hotmail.com") {
             $userDesafios = $user->desafios()->with('desafio')->get();
 
             return view('welcome', [

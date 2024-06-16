@@ -21,7 +21,7 @@
                 </a>
                 <img class="menu-icon" src="{{ asset('images/menu/burger-menu.svg') }}" title='Burger Menu' alt='Burger Menu' onclick="toggleMenu(this)">
                 <ul class="navigation">
-                    
+
                     <li>
                         <a href="/" title="Inicio">
                             Inicio
@@ -47,7 +47,7 @@
                             Información
                         </a>
                     </li>
-                    
+
                     <li>
                         @auth
                         <form action="/logout" method="POST">

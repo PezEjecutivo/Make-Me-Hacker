@@ -75,6 +75,7 @@
         .main-container {
             display: flex;
             flex-direction: row;
+            max-height: 100%;
         }
 
         @media (max-width: 1024px) {

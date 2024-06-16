@@ -1,16 +1,22 @@
-@extends('../layouts')
+@extends('information.layouts')
 
 @section('content')
 
 <head>
     <title>Make me hacker! - Información</title>
     <style>
+        html,
+        body {
+            overflow-x: hidden;
+        }
+
         .faq-container {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             justify-content: flex-start;
-            margin-top: 50px;
+            margin-top: 100px;
+            padding-bottom: 100px;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;

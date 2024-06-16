@@ -37,11 +37,11 @@
                                     @csrf
                                     @method('DELETE')
 
-                                    <a href="{{ route('showUser', $user->id) }}"  style="background-color: #ffcc00; color: #000; margin-right: 5px; border-radius:5px; flex: 1; text-align: center; padding: 5px;"> Ver</a>
+                                    <a href="{{ route('showUser', $user->id) }}" style="background-color: #ffcc00; color: #000; margin-right: 5px; border-radius:5px; flex: 1; text-align: center; padding: 5px;"> Ver</a>
 
-                                    <a href="{{ route('editUser', $user->id) }}"  style="background-color: #4db8ff; color: #fff; margin-right: 5px; border-radius:5px; flex: 1; text-align: center; padding: 5px;"> Editar</a>
+                                    <a href="{{ route('editUser', $user->id) }}" style="background-color: #4db8ff; color: #fff; margin-right: 5px; border-radius:5px; flex: 1; text-align: center; padding: 5px;"> Editar</a>
 
-                                    <button type="submit"  onclick="return confirm('¿Quieres Borrar este usuario?');" style="background-color: #ff4d4d; color: #fff; border-radius:5px; flex: 1; text-align: center; padding: 5px; padding-right:20px"> Borrar</button>
+                                    <button type="submit" style="background-color: #ff4d4d; color: #fff; border-radius:5px; flex: 1; text-align: center; padding: 5px; padding-right:20px"> Borrar</button>
                                 </form>
                             </td>
                         </tr>

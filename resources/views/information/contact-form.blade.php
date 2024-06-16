@@ -69,8 +69,8 @@
             event.preventDefault();
 
             Swal.fire({
-                title: 'Form Submitted',
-                text: 'Your form has been successfully submitted!',
+                title: 'Correo enviado!',
+                text: 'Se ha enviado el correo correctamente, recibira una respuesta pronto!',
                 icon: 'success',
                 confirmButtonText: 'OK'
             }).then((result) => {

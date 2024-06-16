@@ -45,20 +45,39 @@
             $('.card').on('click', function() {
                 var developerId = $(this).data('developer-id');
                 $.ajax({
-                    url: "/developers/" + developerId,
-                    method: 'GET',
+                    url: "{{ route('user-developers.store') }}",
+                    method: 'POST',
+                    data: {
+                        developer_id: developerId,
+                        active: 1,
+                        _token: '{{ csrf_token() }}'
+                    },
                     success: function(response) {
-                        Swal.fire({
-                            title: 'Developer Info',
-                            html: '<p>Nombre: ' + response.nombre + '</p><p>Precio: $' + response.precio + '</p><p>Mejora: ' + response.mejora + '</p><p>Especialidad: ' + response.especialidad + '</p>',
-                            icon: 'info',
-                            confirmButtonText: 'OK'
-                        });
+                        if (response.success) {
+                            Swal.fire({
+                                title: 'Has contratado al desarrollador!',
+                                text: 'Desarrollador contratado correctamente, ya puedes disfrutar de sus mejoras!!',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            });
+                            $('#display-score').text(response.new_score + '$');
+                        } else {
+                            Swal.fire({
+                                title: 'Error',
+                                text: response.message,
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
                     },
                     error: function(xhr) {
+                        var errorMessage = 'Failed to add developer.';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
+                        }
                         Swal.fire({
-                            title: 'Error',
-                            text: 'No se pudo cargar la información del developer.',
+                            title: 'No tienes dinero suficiente T.T',
+                            text: errorMessage,
                             icon: 'error',
                             confirmButtonText: 'OK'
                         });
@@ -67,6 +86,8 @@
             });
         });
     </script>
+
+
 </body>
 
 @endsection

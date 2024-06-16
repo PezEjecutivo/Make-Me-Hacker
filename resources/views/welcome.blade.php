@@ -88,16 +88,25 @@
 
 <body>
     <div class="main-container">
+        <div class="container" style="display:flex; justify-content: flex-start; gap:10px; color: white; min-width:340px">
+            @if ($userDevelopers)
+            <p>Desarolladores activados: </p>
+            @foreach ($userDevelopers as $userDeveloper)
+            <div style="background:rgba(0, 0, 0, 0.3); border-radius:10px; padding:10px">
+                <p>Desarollador: <strong>{{$userDeveloper->developer->nombre}}</strong></p>
+                <p>Proporciona una mejora de {{$userDeveloper->developer->mejora}}</p>
+            </div>
+            @endforeach
+            @endif
+        </div>
 
         <div class="container">
-            <!-- Mostramos el dinero y el pc para poder jugar -->
             <div class="score-display">
                 Dinero: <div id="display-score"></div>
             </div>
             <div style="color:red; font-size:32px" id="countdown-timer"></div>
             <img id="pc" src="{{ asset('images/menu/Logo.svg') }}" alt="Logo" onclick="getScore()">
 
-            <!-- Formulario para guardar los datos -->
             <form action="{{ route('save-score') }}" method="post" id="save-score-form">
                 @csrf
                 <div class="hidden-input">
@@ -107,29 +116,32 @@
             </form>
         </div>
 
-
         <div class="container" style="display:flex; justify-content: flex-start; gap:10px; color: white; min-width:340px">
             @if ($userDesafios)
             <p>Desafios activados: </p>
             @foreach ($userDesafios as $userDesafio)
-
             <div style="background:rgba(0, 0, 0, 0.3); border-radius:10px; padding:10px">
                 <p>Desafio de {{$userDesafio->desafio->nombre}}</p>
                 <p>Tienes que conseguir {{$userDesafio->desafio->dificultad}}</p>
             </div>
-
             @endforeach
             @endif
         </div>
     </div>
 
     <script>
-        //Inicializacion de la variable
+        //Inicializacion de las variables
         var score = parseInt("{{ $user->score }}");
         var actualScore = score;
         var userDesafios = @json($userDesafios);
+        var userDevelopers = @json($userDevelopers);
         var completedDesafios = {};
         var timer;
+
+        //Calculamos el total de las mejoras
+        var totalMejora = userDevelopers.reduce((sum, userDeveloper) => {
+            return sum + parseInt(userDeveloper.developer.mejora);
+        }, 0);
 
         //Cogemos el score en html para cambiarlo al correspondiente segun la base de datos
         document.getElementById("display-score").innerHTML = score + "$";
@@ -137,7 +149,9 @@
 
         //Hacemos una funcion para cada vez que clickemos sumar el score
         const getScore = () => {
-            ++score;
+
+            //Le añadimos el 1 del click mas las mejoras de los programadores
+            score += 1 + totalMejora;
             document.getElementById("display-score").innerHTML = score + "$";
             document.getElementById("input-score").value = score;
 
@@ -162,6 +176,7 @@
 
                 //Comprobamos que el score sea adecuado al desafio
                 if (!completedDesafios[desafio.desafio.id] && score > actualScore + parseInt(desafio.desafio.dificultad)) {
+
                     //Aumentamos el score con la recompensa
                     score += parseInt(desafio.desafio.recompensa);
                     document.getElementById("display-score").innerHTML = score + "$";
@@ -243,6 +258,5 @@
             startCountdown();
         }
     </script>
-
 </body>
 @endsection

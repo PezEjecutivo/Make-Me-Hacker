@@ -12,6 +12,7 @@ use App\Http\Controllers\UserDesafioController;
 use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\UserDeveloperController;
 
 Route::get('/information', function () {
     return view('information/index');
@@ -25,6 +26,10 @@ Route::resource('mejoras-obtenidas', MejorasObtenidasController::class)->middlew
 Route::resource('niveles', NivelesController::class)->middleware('auth');
 Route::resource('amigos', AmigosController::class)->middleware('auth');
 Route::resource('desafios', DesafiosController::class)->middleware('auth');
+
+Route::post('/user-developers/store', [UserDeveloperController::class, 'store'])->name('user-developers.store');
+Route::post('/user-developers/update/{id}', [UserDeveloperController::class, 'update'])->name('user-developers.update');
+Route::get('/user-developers/active', [UserDeveloperController::class, 'getActiveDevelopers'])->name('user-developers.active');
 
 Route::post('/save-score', [UserController::class, 'saveScore'])->name('save-score');
 

@@ -118,13 +118,13 @@
     width: 100%;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 950px) {
     .menu-icon {
         display: none;
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 950px) {
     .navigation {
         display: none;
     }

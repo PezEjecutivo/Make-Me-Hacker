@@ -78,7 +78,7 @@
             max-height: 100%;
         }
 
-        @media (max-width: 1024px) {
+        @media (max-width: 1450px) {
             .main-container {
                 flex-direction: column;
             }
@@ -88,19 +88,19 @@
 
 <body>
     <div class="main-container">
+        @if ($userDevelopers)
         <div class="container" style="display:flex; justify-content: flex-start; gap:10px; color: white; min-width:340px">
-            @if ($userDevelopers)
             <p>Desarolladores activados: </p>
             @foreach ($userDevelopers as $userDeveloper)
-            <div style="background:rgba(0, 0, 0, 0.3); border-radius:10px; padding:10px">
+            <div style="background:rgba(0, 0, 0, 0.3); border-radius:10px; padding:10px; min-width:300px; max-width:300px">
                 <p>Desarollador: <strong>{{$userDeveloper->developer->nombre}}</strong></p>
                 <p>Proporciona una mejora de {{$userDeveloper->developer->mejora}}</p>
             </div>
             @endforeach
-            @endif
         </div>
+        @endif
 
-        <div class="container">
+        <div class="container" style="min-height:730px">
             <div class="score-display">
                 Dinero: <div id="display-score"></div>
             </div>
@@ -116,17 +116,17 @@
             </form>
         </div>
 
+        @if ($userDesafios)
         <div class="container" style="display:flex; justify-content: flex-start; gap:10px; color: white; min-width:340px">
-            @if ($userDesafios)
             <p>Desafios activados: </p>
             @foreach ($userDesafios as $userDesafio)
-            <div style="background:rgba(0, 0, 0, 0.3); border-radius:10px; padding:10px">
+            <div style="background:rgba(0, 0, 0, 0.3); border-radius:10px; padding:10px; min-width:300px; max-width:300px">
                 <p>Desafio de {{$userDesafio->desafio->nombre}}</p>
                 <p>Tienes que conseguir {{$userDesafio->desafio->dificultad}}</p>
             </div>
             @endforeach
-            @endif
         </div>
+        @endif
     </div>
 
     <script>

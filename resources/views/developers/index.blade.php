@@ -76,7 +76,7 @@
                             errorMessage = xhr.responseJSON.message;
                         }
                         Swal.fire({
-                            title: 'No tienes dinero suficiente T.T',
+                            title: 'No puedes contratarlo T.T',
                             text: errorMessage,
                             icon: 'error',
                             confirmButtonText: 'OK'

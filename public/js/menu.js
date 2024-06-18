@@ -12,10 +12,13 @@ const toggleMenu = () => {
 
     burgerMenu.setAttribute("src", iconName);
 
-    if (!isBurger) {
-        navigation.classList.add("navigation--mobile--fadeout");
-    } else {
+    if (isBurger) {
+        navigation.classList.add("navigation--mobile");
         navigation.classList.remove("navigation--mobile--fadeout");
-        navigation.classList.toggle("navigation--mobile");
+    } else {
+        navigation.classList.add("navigation--mobile--fadeout");
+        setTimeout(() => {
+            navigation.classList.remove("navigation--mobile");
+        }, 300); // Match the duration of the fadeout animation
     }
 };

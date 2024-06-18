@@ -20,7 +20,7 @@
                     <img style="max-width: 60px; max-height: 60px; margin-left: 20px;" src="{{asset('images/menu/Logo.svg')}}" alt="">
                 </a>
                 <img class="menu-icon" src="{{ asset('images/menu/burger-menu.svg') }}" title='Burger Menu' alt='Burger Menu' onclick="toggleMenu(this)">
-                <ul class="navigation">
+                <ul class="navigation navigation--mobile--fadeout">
 
                     <li>
                         <a href="/" title="Inicio">

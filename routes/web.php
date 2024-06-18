@@ -13,13 +13,14 @@ use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\UserDeveloperController;
+use App\Http\Middleware\usernotadmin;
 
 Route::get('/information', function () {
     return view('information/index');
 })->middleware('auth');
 
 //RUTAS AUTOMATICAS / CRUD Sencillo
-Route::resource("", UserController::class)->middleware('auth');
+Route::resource("", UserController::class)->middleware("auth");
 Route::resource('logros', LogrosController::class)->middleware('auth');
 Route::resource('programadores', DeveloperController::class)->middleware('auth');
 Route::resource('mejoras-obtenidas', MejorasObtenidasController::class)->middleware('auth');
@@ -66,10 +67,10 @@ Route::get('/about-us', [AboutUsController::class, 'index'])->name('about.us');
 Route::post('/contact', [AboutUsController::class, 'sendContactForm'])->name('contact.form');
 
 // Rutas admin
-Route::get("/admin", [UserController::class, "allUsers"])->name("allUsers")->middleware("auth");
-Route::get("/admin/user/{id}", [UserController::class, "showUser"])->name("showUser")->middleware("auth");
-Route::get("/admin/create", [UserController::class, "createUser"])->name("createUser")->middleware("auth");
-Route::post("/admin/user", [UserController::class, "storeUser"])->name("storeUser")->middleware("auth");
-Route::get("/admin/user/{id}/edit", [UserController::class, "editUser"])->name("editUser")->middleware("auth");
-Route::put("/admin/user/{id}", [UserController::class, "updateUser"])->name("updateUser")->middleware("auth");
-Route::delete("/admin/user/{id}", [UserController::class, "destroyUser"])->name("destroyUser")->middleware("auth");
+Route::get("/admin", [UserController::class, "allUsers"])->name("allUsers")->middleware(usernotadmin::class);
+Route::get("/admin/user/{id}", [UserController::class, "showUser"])->name("showUser")->middleware(usernotadmin::class);
+Route::get("/admin/create", [UserController::class, "createUser"])->name("createUser")->middleware(usernotadmin::class);
+Route::post("/admin/user", [UserController::class, "storeUser"])->name("storeUser")->middleware(usernotadmin::class);
+Route::get("/admin/user/{id}/edit", [UserController::class, "editUser"])->name("editUser")->middleware(usernotadmin::class);
+Route::put("/admin/user/{id}", [UserController::class, "updateUser"])->name("updateUser")->middleware(usernotadmin::class);
+Route::delete("/admin/user/{id}", [UserController::class, "destroyUser"])->name("destroyUser")->middleware(usernotadmin::class);

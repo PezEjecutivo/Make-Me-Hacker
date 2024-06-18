@@ -19,16 +19,16 @@
     <div class="background" style="z-index: -1;">
         <div style="display: flex; flex-direction: column;" class="centering">
             <div class="verification-message" style="background-color: transparent;">
-                <h1 style="background-color: transparent;">Verify Your Email Address</h1>
+                <h1 style="background-color: transparent;">Verifica tu correo electronico</h1>
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success" role="alert">
                     {{ $message }}
                 </div>
                 @endif
-                <p style="background-color: transparent;">Before proceeding, please check your email for a verification link. If you did not receive the email,</p>
+                <p style="background-color: transparent;">Antes de continuar, Por favor comprueba en tu correo si esta el boton de acceso. En caso de que no, haga click aqui para recibir otro correo,</p>
                 <form style="background-color: transparent;" class="d-inline" method="POST" action="{{ route('verification.resend') }}">
                     @csrf
-                    <button type="submit" class="btn btn-link p-0 m-0 align-baseline">click here to request another</button>.
+                    <button type="submit" class="btn btn-link p-0 m-0 align-baseline">click aqui para recibir otro correo</button>.
                 </form>
             </div>
         </div>
